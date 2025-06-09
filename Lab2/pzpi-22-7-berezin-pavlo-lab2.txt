@@ -1,0 +1,781 @@
+﻿Міністерство освіти і науки України
+Харківський національний університет радіоелектроніки
+
+
+
+
+Кафедра програмної інженерії
+
+
+
+
+Звіт з лабораторної роботи № 2
+з дисципліни «Архітектура програмного забезпечення»
+на тему «Розробка програмної архітектури,
+створення та відлагодження програмного коду
+серверної частини програмної системи»
+
+
+
+
+Виконав
+студент групи ПЗПІ-22-7
+	
+
+Березін Павло Павлович
+	
+
+Перевірив
+ст. викладач кафедри ПІ
+	
+
+
+
+Сокорчук Ігор Петрович
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Харків, 2025
+2.1 Мета роботи
+
+
+
+
+
+
+2.2 Історія змін
+
+
+Таблиця 1 — Історія змін та виправлень роботи
+№
+	Дата
+	Версія звіту
+	Опис змін та виправлень
+	1
+	24.05.2025
+	0.1
+	Створено розділ «Історія змін»
+	2
+	24.05.2025
+	0.1
+	Створено розділ «Хід роботи»
+	3
+	24.05.2025
+	0.1
+	Створено розділ «Опис виконаної роботи»
+	4
+	24.05.2025
+	0.1
+	Створено розділ «Висновки»
+	5
+	24.05.2025
+	0.1
+	Додано посилання на відеозапис доповіді в додаток А
+	
+
+2.3 Завдання
+
+
+        
+2.4 Опис виконаної роботи
+
+
+Для розробки серверної частини програмної системи було обрано такі технології та інструменти:
+* Python — основна мова програмування завдяки її широкій екосистемі бібліотек, підтримці різних парадигм програмування та активній спільноті розробників.
+* Flask — легковаговий вебфреймворк для створення RESTful API, який забезпечує гнучкість і дозволяє розробляти серверну частину із застосуванням мінімальної кількості шаблонного коду.
+* Microsoft SQL Server — система управління базами даних, де зберігаються створені таблиці програмної системи.
+* SQLAlchemy — це ORM (Object-Relational Mapping) бібліотека для взаємодії з реляційними базами даних, яка дозволяє описувати структуру таблиць і запити у вигляді Python-класів.
+* PostgreSQL — реляційна база даних, яка забезпечує високу продуктивність, підтримку складних запитів та механізмів транзакцій.
+* Marshmallow — бібліотека для валідації, серіалізації та десеріалізації даних, яка полегшує обробку JSON у межах REST API.
+* Swagger — програмний продукт для проєктування та документування API.
+        Серверна частина програмної системи побудована за багатошаровою архітектурою, яка забезпечує модульність, повторне використання коду та простоту масштабування. Основні компоненти архітектури:
+* База даних:
+   * Постійне зберігання інформації про сенсори, записи обслуговування, порогові значення та інші дані.
+   * Всі таблиці та зв’язки між ними спроєктовані відповідно до ER-діаграми (рисунок 2).
+* REST API:
+   * Надання методів CRUD для взаємодії клієнтів із системою.
+   * Чітко визначені маршрути для обробки запитів.
+* ORM для роботи з базою даних.
+* Впровадження додаткових механізмів валідації та обробки винятків.
+
+
+Перед розробкою серверної частини було створено відповідну UML-діаграму прецедентів для кращого розуміння майбутньої роботи (рисунок 2.1).
+
+
+  
+
+Рисунок 2.1 — UML-діаграма прецедентів серверної частини
+
+
+        Створено ER-діаграму для визначення з таблицями, які необхідно створити (рисунок 2.2).
+  
+
+Рисунок 2.2 — ER-діаграма даних
+
+
+У відповідності до ER-діаграми було створено базу даних на Microsoft SQL Server (див. додаток Б).
+
+
+  
+
+Рисунок 2.3 — Діаграма структури БД
+
+
+API було реалізовано з використанням REST-підходу, що включає чотири основні принципи:
+* Ресурсно-орієнтованість (кожен елемент: запис обслуговування, сенсорний лог тощо — представлений як ресурс із унікальним URI).
+* HTTP-методи (таблиця 2).
+* JSON як формат передачі даних, який забезпечує легку інтеграцію з клієнтськими застосунками.
+* Стандартні коди статусу HTTP, які інформують клієнта про результат виконання операції.
+
+
+Таблиця 2 — REST API програмної системи
+Метод запиту
+	Шлях
+	Опис
+	POST
+	/buildings/
+	Створити новий будинок
+	GET
+	/buildings/
+	Отримати список усіх будинків
+	GET
+	/buildings/{building_id}
+	Отримати дані конкретного будинку
+	PUT
+	/buildings/{building_id}
+	Оновити дані будинку
+	DELETE
+	/buildings/{building_id}
+	Видалити будинок
+	POST
+	/elevators/
+	Створити новий ліфт
+	GET
+	/elevators/
+	Отримати список усіх ліфтів
+	GET
+	/elevators/{elevator_id}
+	Отримати інформацію про конкретний ліфт
+	PUT
+	/elevators/{elevator_id}
+	Оновити інформацію про ліфт
+	DELETE
+	/elevators/{elevator_id}
+	Видалити ліфт
+	POST
+	/maintenances/
+	Додати новий запис обслуговування
+	POST
+	/maintenances/schedule/{elevator_id}
+	Планування профілактичного обслуговування
+	GET
+	/maintenances/
+	Отримати список усіх записів обслуговування
+	GET
+	/maintenances/{record_id}
+	Отримати деталі запису обслуговування
+	GET
+	/maintenances/pending-maintenance
+	Отримати записи обслуговування, які очікують на техніка
+	DELETE
+	/maintenances/{record_id}
+	Видалити запис обслуговування
+	DELETE
+	/maintenances/cleanup
+	Видалити застарілі дані
+	POST
+	/technicians/login
+	Авторизація техніка
+	POST
+	/technicians/register
+	Реєстрація нового техніка
+	GET
+	/technicians/profile
+	Отримати профіль поточного техніка
+	POST
+	/sensors/
+	Додати новий запис сенсора
+	POST
+	/sensors/analyze
+	Аналіз даних сенсорів
+	GET
+	/sensors/
+	Отримати список усіх записів сенсорів
+	GET
+	/sensors/{log_id}
+	Отримати деталі запису сенсора
+	DELETE
+	/sensors/{log_id}
+	Видалити запис сенсора
+	POST
+	/residents/login
+	Авторизація мешканця
+	POST
+	/residents/register
+	Реєстрація нового мешканця
+	GET
+	/residents/profile
+	Отримати профіль поточного мешканця
+	GET
+	/reports/ranking
+	Отримати рейтинг ліфтів за інтенсивністю використання
+	GET
+	/reports/summary/{elevator_id}
+	Отримати зведений звіт для ліфта
+	POST
+	/thresholds/
+	Додати нове порогове значення
+	GET
+	/thresholds/
+	Отримати список усіх порогових значень
+	PUT
+	/thresholds/{parameter}
+	Оновити порогове значення
+	DELETE
+	/thresholds/{parameter}
+	Видалити порогове значення
+	POST
+	/admins/login
+	Авторизація адміністратора
+	POST
+	/admins/register
+	Реєстрація нового адміністратора
+	GET
+	/backup/export
+	Експорт даних до резервної копії
+	POST
+	/backup/import
+	Імпорт даних із резервної копії
+	
+
+Фрагменти програмного коду з логікою взаємодії серверної частини з БД та клієнтами дивіться в додатках В та Г відповідно.
+
+
+Бізнес-логіка серверної частини розроблена для забезпечення автоматизації, аналізу та оптимізації основних процесів, пов’язаних із моніторингом, обслуговуванням та адмініструванням системи керування ліфтами. Вона покриває функціональні можливості, визначені у пункті 2.2 документа Vision & Scope, зокрема:
+         1. Автоматичний моніторинг стану ліфтів та датчиків у реальному часі (MF-1).
+         2. Виявлення аварійних ситуацій, формування сповіщень та автоматичне надсилання їх технічному персоналу (MF-2).
+         3. Аналіз даних для генерації аналітичних звітів, виявлення повторюваних проблем і формування рекомендацій щодо їх усунення (MF-3).
+         4. Ранжування та сегментація ліфтів за різними критеріями, наприклад, за інтенсивністю використання або кількістю аварій (MF-3).
+         5. Забезпечення        налаштування        параметрів        системи        та        адміністрування доступу (MF-8).
+
+
+Переваги рішення включають автоматизацію ключових процесів, що зменшує участь людини в рутинних задачах. Система вирізняється гнучкістю, дозволяючи легко налаштовувати її під потреби користувачів. Також забезпечується масштабованість, яка дає можливість розширювати функціонал без значних змін у базовому коді. Крім того, аналітичний підхід допомагає ідентифікувати        приховані        проблеми        та        підвищити        надійність        роботи обладнання.
+
+
+Бізнес-логіка була реалізована із врахуванням модульності та розширюваності. Основні принципи, використані під час розробки:
+         1. Модульність:
+            1. Бізнес-логіка розділена на окремі функціональні модулі, що дозволяє легко масштабувати систему та додавати новий функціонал без значних змін у базовій структурі.
+            2. Наприклад, обробка сенсорних даних, формування звітів, ранжування ліфтів та аналіз даних реалізовані у вигляді окремих функцій, що можуть повторно використовуватися.
+         2. Автоматизація процесів:
+            1. Система автоматично збирає дані з датчиків, аналізує їх та визначає необхідність технічного обслуговування або ремонту.
+            2. Автоматичне видалення старих даних, які не мають операційної цінності, для оптимізації використання бази даних.
+         3. Інтеграція аналітики:
+            1. Для аналізу даних використовуються математичні методи, що дозволяють ідентифікувати проблемні ліфти та прогнозувати потенційні несправності.
+            2. Вбудована аналітика дозволяє адміністраторам виявляти тренди у використанні обладнання та приймати обґрунтовані рішення.
+         4. Гнучкість налаштувань:
+            1. Адміністративна панель дозволяє змінювати порогові значення для датчиків, задавати періодичність моніторингу, а також редагувати правила формування звітів.
+            2. Налаштування системи інтегроване у бізнес-логіку, що забезпечує зручність використання для адміністративного персоналу.
+         5. Безпека:
+            1. Забезпечується розподілення доступу до адміністративних функцій та бізнес-логіки на основі ролей користувачів.
+            2. Дані сенсорів та звіти передаються з використанням зашифрованих протоколів.
+
+
+Функції адміністрування
+Функції адміністрування включають можливість взаємодії адміністратора із системою для управління користувачами, зміни параметрів роботи системи та моніторингу статусу ліфтів. Основні функції:
+         1. Управління параметрами системи:
+            1. Налаштування періодичності збору даних із датчиків.
+            2. Зміна порогових значень для спрацювання аварійних сповіщень.
+         2. Моніторинг статусу системи:
+            1. Надання адміністраторам доступу до звітів про стан обладнання.
+            2. Відображення        інтерактивної        карти        з        активними        аварійними сигналами (MF-4).
+         3. Управління ролями та доступом:
+            1. Розподіл ролей між адміністраторами, технічним персоналом та іншими користувачами.
+            2. Логування змін у параметрах системи для забезпечення аудиту дій адміністративного персоналу
+
+
+  
+
+Рисунок 2.4 — UML-діаграма діяльності для серверної частини
+  
+
+Рисунок 2.5 — UML-діаграма взаємодії для серверної частини
+
+
+  
+
+Рисунок 2.6 — UML-діаграма розгортання (Deployment Diagram)
+
+
+2.5 Висновки
+        
+        У ході виконання лабораторної роботи було розроблено серверну частину програмної системи для моніторингу та управління ліфтами, використовуючи сучасні технології та інструменти, такі як Python, Flask, SQLAlchemy та Microsoft SQL Server. Система реалізована з урахуванням принципів REST API, що забезпечує гнучкість, масштабованість та легкість інтеграції з клієнтськими застосунками. Важливим аспектом роботи стало забезпечення модульності, автоматизації процесів, аналітики даних та безпеки, що дозволяє ефективно вирішувати поставлені завдання, такі як моніторинг стану ліфтів, генерація звітів і управління користувачами.
+Робота демонструє високий рівень володіння технологіями розробки серверних додатків, а також здатність до структурованого проектування архітектури програмного забезпечення. Використані UML-діаграми (прецедентів, діяльності, розгортання тощо) та ER-діаграми підтверджують продуманість і обґрунтованість прийнятих рішень. Отримані результати свідчать про успішне виконання поставлених завдань і можуть слугувати основою для подальшого розвитку системи.
+
+
+
+
+
+
+ДОДАТОК А
+Посилання на відеозапис та хронологічний опис доповіді
+
+
+Відеозапис доповіді на YouTube: https://youtu.be/B6MkokRAanY 
+        00:00 Вступ
+00:11 Опис розробки та діаграми
+02:43 Тестування створеної серверної частини та API
+10:37 Отримання токену доступу
+12:03 Бізнес-логіка
+14:15 Експорт/імпорт резервних копій БД
+
+
+________________
+
+
+ДОДАТОК Б
+SQL-скрипт створення БД
+
+
+1. CREATE DATABASE ElevatorMonitoring;
+2.
+3. CREATE TABLE [dbo].[buildings]( -- будинки
+4.         [id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, -- первинний ключ
+5.         [name] NVARCHAR(100) NOT NULL, -- назва будинку
+6.         [address] NVARCHAR(200) NOT NULL, -- адреса розположення
+7.         [num_floors] INT NOT NULL, -- кількість поверхів
+8. );
+9. CREATE TABLE [dbo].[elevators]( -- ліфти
+10.         [id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, -- первинний ключ
+11.         [building_id] INT NOT NULL FOREIGN KEY REFERENCES [buildings]([id]), -- будинок, до якого належить ліфт (зовнішній ключ)
+12.         [serial_number] NVARCHAR(50) NOT NULL, -- серійний номер
+13.         [status] NVARCHAR(50) NOT NULL, -- стан
+14.         [install_date] DATE NOT NULL, -- дата встановлення
+15. );
+16. CREATE TABLE [dbo].[maintenance_records]( -- записи про технічне обслуговування
+17.         [id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, -- первинний ключ
+18.         [elevator_id] INT NOT NULL FOREIGN KEY REFERENCES [elevators]([id]), -- ліфт до обслуговування (зовнішній ключ)
+19.         [technician_id] INT NOT NULL FOREIGN KEY REFERENCES [technicians]([id]), -- технік, що створив запис (зовнішній ключ)
+20.         [maintenance_date] DATE NOT NULL, -- дата створення запису
+21.         [description] NVARCHAR(max) NOT NULL, -- опис
+22. );
+23.
+24. CREATE TABLE [dbo].[residents]( -- мешканці
+25.         [id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, -- первинний ключ
+26.         [name] NVARCHAR(100) NOT NULL, -- ПІБ
+27.         [email] NVARCHAR(100) NOT NULL, -- електронна пошта
+28.         [password] NVARCHAR(200) NOT NULL, -- хеш паролю
+29.         [building_id] INT NOT NULL FOREIGN KEY REFERENCES [buildings]([id]), -- будинок, у якому мешкає людина (зовнішній ключ)
+30. );
+31.
+32. CREATE TABLE [dbo].[sensor_logs]( -- логи від сенсорів
+33.         [id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, -- первинний ключ
+34.         [elevator_id] INT NOT NULL FOREIGN KEY REFERENCES [elevators]([id]), -- до якого ліфта належить лог (зовнішній ключ)
+35.         [timestamp] DATETIME NOT NULL, -- час фіксування
+36.         [temperature] FLOAT NULL, -- температура
+37.         [humidity] FLOAT NULL, -- вологість
+38.         [weight] FLOAT NULL, -- маса
+39.         [event_type] NVARCHAR(50) NOT NULL, -- тип події
+40.         [message] NVARCHAR(max) NULL, -- повідомлення
+41. );
+42.
+43. CREATE TABLE [dbo].[technicians]( -- технічний персонал
+44.         [id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, -- первинний ключ
+45.         [name] NVARCHAR(100) NOT NULL, -- ПІБ
+46.         [phone_number] NVARCHAR(15) NOT NULL, -- номер телефону
+47.         [email] NVARCHAR(100) NOT NULL, -- електронна пошта
+48.         [password] VARCHAR(200) NOT NULL, -- хеш паролю
+49. );
+________________
+
+
+ДОДАТОК В
+Фрагмент програмного коду, пов’язаного з логікою взаємодії серверної частини з БД
+
+
+Клас «Ліфт»:
+1. from app import db
+2.
+3. class Elevator(db.Model):
+4.         __tablename__ = 'elevators'
+5.         id = db.Column(db.Integer, primary_key=True)
+6.         building_id = db.Column(db.Integer, db.ForeignKey('buildings.id'), nullable=False)
+7.         serial_number = db.Column(db.Unicode(50), unique=True, nullable=False)
+8.         status = db.Column(db.Unicode(50), nullable=False)
+9.         install_date = db.Column(db.Date, nullable=False)
+
+
+Функції роботи з таблицею «Ліфт»:
+ 1. from flask import request
+ 2. from flask_restx import Namespace, Resource, fields
+ 3. from app.models.elevator import Elevator
+ 4. from app import db
+ 5.
+ 6. ns_elevators = Namespace('elevators', description='Операції з ліфтами')
+ 7.
+ 8. # Опис моделі для Swagger-документації
+ 9. elevator_model = ns_elevators.model('Elevator', {
+10.         'building_id': fields.Integer(required=True, description='ID будівлі, до якої належить ліфт'),
+11.         'serial_number': fields.String(required=True, description='Серійний номер ліфта'),
+12.         'status': fields.String(required=True, description='Статус ліфта (наприклад, "active", "maintenance")'),
+13.         'install_date': fields.String(required=False, description='Дата встановлення ліфта (у форматі YYYY-MM-DD)')
+14. })
+15.
+16. @ns_elevators.route('/')
+17. class ElevatorListResource(Resource):
+18.         @ns_elevators.marshal_list_with(elevator_model)
+19.         def get(self):
+20.             """Отримати список усіх ліфтів"""
+21.             elevators = Elevator.query.all()
+22.             return elevators
+23.
+24.         @ns_elevators.expect(elevator_model)
+25.         def post(self):
+26.             """Створити новий ліфт"""
+27.             data = request.json
+28.             new_elevator = Elevator(
+29.                 building_id=data['building_id'],
+30.                 serial_number=data['serial_number'],
+31.                 status=data['status'],
+32.                 install_date=data.get('install_date')  # Перевірка наявності дати
+33.             )
+34.             db.session.add(new_elevator)
+35.             db.session.commit()
+36.             return {"message": "Ліфт створено"}, 201
+37.
+38.
+39. @ns_elevators.route('/<int:elevator_id>')
+40. @ns_elevators.param('elevator_id', 'Унікальний ідентифікатор ліфта')
+41. class ElevatorResource(Resource):
+42.         @ns_elevators.marshal_with(elevator_model)
+43.         def get(self, elevator_id):
+44.             """Отримати інформацію про конкретний ліфт"""
+45.             elevator = Elevator.query.get_or_404(elevator_id)
+46.             return elevator
+47.
+48.         @ns_elevators.expect(elevator_model)
+49.         def put(self, elevator_id):
+50.             """Оновити інформацію про ліфт"""
+51.             data = request.json
+52.             elevator = Elevator.query.get_or_404(elevator_id)
+53.
+54.             elevator.status = data.get('status', elevator.status)
+55.             elevator.serial_number = data.get('serial_number', elevator.serial_number)
+56.             elevator.install_date = data.get('install_date', elevator.install_date)
+57.
+58.             db.session.commit()
+59.             return {"message": "Ліфт оновлено"}, 200
+60.
+61.         def delete(self, elevator_id):
+62.             """Видалити ліфт"""
+63.             elevator = Elevator.query.get_or_404(elevator_id)
+64.             db.session.delete(elevator)
+65.             db.session.commit()
+66.             return {"message": "Ліфт видалено"}, 200
+
+
+________________
+
+
+ДОДАТОК Г
+Фрагмент програмного коду, пов’язаного з логікою взаємодії серверної частини з клієнтами
+
+
+Реєстрація, авторизація користувача та читання його даних:
+ 1. from flask import request, jsonify
+ 2. from flask_restx import Namespace, Resource, fields
+ 3. from werkzeug.security import generate_password_hash, check_password_hash
+ 4. from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+ 5. from app.models.resident import Resident
+ 6. from app import db
+ 7.
+ 8. ns_residents = Namespace('residents', description='Операції з мешканцями')
+ 9.
+10. resident_model = ns_residents.model('Resident', {
+11.         'name': fields.String(required=True, description='Ім’я мешканця'),
+12.         'email': fields.String(required=True, description='Електронна адреса'),
+13.         'password': fields.String(required=True, description='Пароль'),
+14.         'building_id': fields.Integer(required=True, description='ID будинку')
+15. })
+16.
+17. login_model = ns_residents.model('Login', {
+18.         'email': fields.String(required=True, description='Електронна адреса'),
+19.         'password': fields.String(required=True, description='Пароль')
+20. })
+21.
+22. @ns_residents.route('/register')
+23. class ResidentRegister(Resource):
+24.         @ns_residents.expect(resident_model)
+25.         def post(self):
+26.             """Реєстрація нового мешканця"""
+27.             data = request.json
+28.
+29.             # Перевірка, чи email вже існує
+30.             if Resident.query.filter_by(email=data['email']).first():
+31.                 return {"error": "Мешканець із таким email вже існує"}, 400
+32.
+33.             # Створення нового мешканця
+34.             hashed_password = generate_password_hash(data['password'], method='pbkdf2:sha256')
+35.             new_resident = Resident(
+36.                 name=data['name'],
+37.                 email=data['email'],
+38.                 password=hashed_password,
+39.                 building_id=data['building_id']
+40.             )
+41.             db.session.add(new_resident)
+42.             db.session.commit()
+43.
+44.             return {"message": "Реєстрація успішна"}, 201
+45.
+46.
+47. @ns_residents.route('/login')
+48. class ResidentLogin(Resource):
+49.         @ns_residents.expect(login_model)
+50.         def post(self):
+51.             """Авторизація мешканця"""
+52.             data = request.json
+53.             resident = Resident.query.filter_by(email=data['email']).first()
+54.
+55.             if not resident or not check_password_hash(resident.password, data['password']):
+56.                 return {"error": "Невірний email або пароль"}, 401
+57.
+58.             # Створення токена доступу
+59.             access_token = create_access_token(identity=resident.id)
+60.             return {"access_token": access_token}, 200
+61.
+62.
+63. @ns_residents.route('/profile')
+64. class ResidentProfile(Resource):
+65.         @jwt_required()
+66.         def get(self):
+67.             """Отримати профіль поточного мешканця"""
+68.             resident_id = get_jwt_identity()
+69.             resident = Resident.query.get(resident_id)
+70.
+71.             if not resident:
+72.                 return {"error": "Мешканця не знайдено"}, 404
+73.
+74.             return {
+75.                 "id": resident.id,
+76.                 "name": resident.name,
+77.                 "email": resident.email,
+78.                 "building_id": resident.building_id
+79.             }, 200
+
+
+        Ініціалізація API:
+1. from flask import Flask
+ 2. from flask_sqlalchemy import SQLAlchemy
+ 3. from flask_restx import Api
+ 4.
+ 5. db = SQLAlchemy()
+ 6. api = Api(title="Elevator Monitoring API", version="1.0", description="API для управління ліфтами")
+ 7.
+ 8. def create_app():
+ 9.         app = Flask(__name__)
+10.
+11.         # Налаштування
+12.         app.config.from_object('app.config.Config')
+13.
+14.         # Ініціалізація розширень
+15.         db.init_app(app)
+16.         api.init_app(app)
+17.
+18.         # Реєстрація моделей
+19.         from app.models import init_models
+20.         init_models(app)
+21.
+22.         # Реєстрація роутів
+23.         from app.routes import init_routes
+24.         init_routes(api)
+25.
+26.         return app
+________________
+ДОДАТОК Д
+Фрагмент програмного коду бізнес-логіки серверної частини
+
+
+Обробка отриманих від датчиків даних:
+  1. from app.models.maintenance import MaintenanceRecord
+  2. from app.models.threshold import Threshold
+  3. from datetime import datetime
+  4. from app import db 5.
+  5. def analyze_sensor_data(sensor_data):
+  6. """Аналіз даних сенсорів та генерація сповіщень"""
+  7. thresholds = {t.parameter: t.value for t in Threshold.query.all()} 9.
+  8. 10.        alerts = [] 11.
+  9. # Перевірка температури, вологості та ваги
+ 10. if sensor_data.get("temperature") is not None and sensor_data.get("temperature") > thresholds.get("temperature", 40):
+ 11. alerts.append(f"Температура перевищила {thresholds['temperature']}°C.") 15.
+ 12. if sensor_data.get("humidity") is not None and sensor_data.get("humidity") > thresholds.get("humidity", 90):
+ 13. alerts.append(f"Вологість перевищила {thresholds['humidity']}%.") 18.
+ 14. if sensor_data.get("weight") is not None and sensor_data.get("weight") > thresholds.get("weight", 1000):
+ 15. alerts.append(f"Вага перевищила {thresholds['weight']} кг.") 21.
+ 16. if not sensor_data.get("is_power_on", True):
+ 17. alerts.append("Відсутнє електропостачання.")
+ 18.
+ 19.
+ 20.
+ 21. if sensor_data.get("is_stuck", False):
+ 22. alerts.append("Ліфт застряг.")
+ 23.
+ 24.
+ 25. # Визначення типу події
+ 26. event_type = determine_event_type(alerts) 30.
+ 27. # Якщо є критичні події, створити заявку на обслуговування
+ 28. if event_type == "critical":
+ 29. elevator_id = sensor_data["elevator_id"]
+ 30. existing_maintenance = MaintenanceRecord.query.filter_by(
+ 31. elevator_id=elevator_id,
+ 32. description="pending"
+ 33. ).first()
+ 34.
+ 35.
+ 36. if not existing_maintenance:
+ 37. new_maintenance = MaintenanceRecord(
+ 38. elevator_id=elevator_id,
+ 39. maintenance_date=datetime.now().date(),
+ 40. description="; ".join(alerts),
+ 41. )
+ 42. db.session.add(new_maintenance)
+ 43. db.session.commit()
+ 44.
+ 45.
+ 46. return alerts, event_type 49.
+ 47. def determine_event_type(alerts):
+ 48. """
+ 49. Визначає тип події (event_type) на основі списку сповіщень (alerts). 53.
+ 50.
+ 51. :param alerts: Список сповіщень. Якщо список порожній — тип normal,
+ 52. якщо є сповіщення — critical.
+ 53. :return: Рядок "normal" або "critical".
+ 54. """
+ 55. return "critical" if alerts else "normal"
+
+
+________________
+ДОДАТОК Е
+Фрагмент програмного коду адміністрування серверної частини
+
+
+
+
+Функції експорту/імпорту бекапу:
+  1. from flask import jsonify, request, send_file
+  2. from flask_restx import Namespace, Resource, fields
+  3. import os
+  4. import json
+  5. from app import db
+  6. from app.models.sensor import SensorLog
+  7. from app.models.elevator import Elevator
+  8. from app.models.building import Building
+  9. from app.models.maintenance import MaintenanceRecord
+ 10. from app.models.admin import Admin
+ 11. from app.models.technician import Technician
+ 12. from app.models.threshold import Threshold
+ 13. from app.utils.auth import admin_required 14.
+ 14. 15. ns_backup = Namespace('backup', description='Операції з резервними копіями (лише для адміністраторів)')
+ 15. 16.
+ 16. backup_model = ns_backup.model('BackupOperation', {
+ 17. 'file_path': fields.String(description='Шлях до резервної копії')
+ 18. 19. })
+ 19.
+ 20. 20.
+ 21. @ns_backup.route('/export')
+ 22. class BackupExport(Resource):
+ 23. @ns_backup.response(200, 'Резервна копія відновлена')
+ 24. @ns_backup.response(403, 'Доступ заборонено')
+ 25. @ns_backup.response(400, 'Некоректний файл')
+ 26. @ns_backup.doc(security='BearerAuth')
+ 27. @admin_required
+ 28. def get(self):
+ 29. """Експорт даних до резервної копії"""
+ 30. file_path = "backup.json"
+ 31. data = {
+ 32. "sensor_logs": [log.as_dict() for log in SensorLog.query.all()],
+ 33. "elevators": [elevator.as_dict() for elevator in Elevator.query.all()],
+ 34. "buildings": [building.as_dict() for building in Building.query.all()],
+ 35. "maintenances": [maintenance.as_dict() for maintenance in MaintenanceRecord.query.all()],
+ 36. "admins": [admin.as_dict() for admin in Admin.query.all()],
+ 37. "technicians": [technician.as_dict() for technician in Technician.query.all()],
+ 38. "thresholds": [threshold.as_dict() for threshold in Threshold.query.all()]
+ 39. 39.        }
+ 40. with open(file_path, "w") as backup_file:
+ 41. json.dump(data, backup_file)
+ 42.
+ 43.
+ 44. return send_file(file_path, as_attachment=True, download_name="backup.json")
+ 45.
+ 46.
+ 47. @ns_backup.route('/import')
+ 48. class BackupImport(Resource):
+ 49.
+ 50. @ns_backup.response(200, 'Резервна копія відновлена')
+ 51. @ns_backup.response(403, 'Доступ заборонено')
+ 52. @ns_backup.response(400, 'Некоректний файл')
+ 53. @ns_backup.doc(security='BearerAuth')
+ 54. @admin_required
+ 55. def post(self):
+ 56. """Імпорт даних із резервної копії"""
+ 57. if 'file' not in request.files:
+ 58. return {"message": "Файл не надано"}, 400 56.
+ 59. backup_file = request.files['file']
+ 60. if not backup_file.filename.endswith(".json"):
+ 61. return {"message": "Некоректний формат файлу. Очікується .json"}, 400
+ 62.
+ 63.
+ 64. data = json.load(backup_file)
+ 65. SensorLog.query.delete()
+ 66. Elevator.query.delete()
+ 67.
+ 68.
+ 69. for log in data.get("sensor_logs", []):
+ 70. new_log = SensorLog(**log)
+ 71. db.session.add(new_log)
+ 72.
+ 73.
+ 74. for elevator in data.get("elevators", []):
+ 75. new_elevator = Elevator(**elevator)
+ 76. db.session.add(new_elevator)
+ 77.
+ 78.
+ 79. for building in data.get("buildings", []):
+ 80. new_building = Building(**building)
+ 81. db.session.add(new_building)
+ 82.
+ 83.
+ 84.
+ 85. for maintenance in data.get("maintenances", []):
+ 86. new_maintenance = MaintenanceRecord(**maintenance)
+ 87. db.session.add(new_maintenance)
+ 88.
+ 89.
+ 90. for admin in data.get("admins", []):
+ 91. new_admin = Admin(**admin)
+ 92. db.session.add(new_admin)
+ 93.
+ 94.
+ 95. for technician in data.get("technicians", []):
+ 96. new_technician = Technician(**technician)
+ 97. db.session.add(new_technician)
+ 98.
+ 99.
+100. for threshold in data.get("thresholds", []):
+101. new_threshold = Threshold(**threshold)
+102. db.session.add(new_threshold)
+103.
+104.
+105. db.session.commit()
+106. return {"message": "Дані успішно відновлено"}, 200
