@@ -1,0 +1,128 @@
+{
+	"login": {
+		"title": "Elevator Monitoring System",
+		"emailLabel": "Email",
+		"passwordLabel": "Password",
+		"submitButton": "Sign In",
+		"logout": "Log out",
+		"forgotPassword": "Forgot password?"
+	},
+	"common": {
+		"title": "Elevator Monitoring System",
+		"actions": "Actions",
+		"add": "Add",
+		"edit": "Edit",
+		"delete": "Delete",
+		"cancel": "Cancel",
+		"save": "Save",
+		"details": "Details",
+		"notAvailable": "N/A",
+		"export": "Export",
+		"adminPanel": "Admin Panel"
+	},
+	"sidebar": {
+		"controlPanel": "Control Panel",
+		"map": "Interactive Elevator Map",
+		"reports": "Reports",
+		"admin": "Administration",
+		"settings": "Settings"
+	},
+	"elevatorCard": {
+		"general": "General elevator count",
+		"check": "Working elevators",
+		"repair": "Elevators under repair",
+		"warning": "Broken elevators",
+		"temperatureStatistics": "Temperature in elevator shafts"
+	},
+	"elevator": {
+		"statusTitle": "Elevators status",
+		"serialNumber": "Serial number",
+		"building": "Building",
+		"address": "Address",
+		"installed": "Installed",
+		"status": "Status",
+		"lastUpdate": "Last update",
+		"lastCheck": "Last check",
+		"report": "Report",
+		"unknown": "Unknown",
+		"statuses": {
+			"active": "Active",
+			"maintenance": "Maintenance",
+			"critical": "Critical",
+			"unknown": "Unknown"
+		}
+	},
+	"errors": {
+		"sensorDataLoadFailed": "Failed to load data",
+		"invalidElevatorId": "Invalid elevator ID"
+	},
+	"export": {
+		"pdf": "PDF",
+		"excel": "Excel"
+	},
+	"reports": {
+		"title": "Analytics and Reports",
+		"tabs": {
+			"criticalStops": "Critical Stops",
+			"downtimes": "Downtimes",
+			"usage": "Usage Intensity"
+		},
+		"elevator": "Elevator",
+		"stopStart": "Stop Start",
+		"stopEnd": "Stop End",
+		"duration": "Duration",
+		"reason": "Reason",
+		"totalDowntime": "Total Downtime",
+		"incidentsCount": "Incidents Count",
+		"usageCount": "Usage Count",
+		"noData": "No data available"
+	},
+	"admin": {
+		"title": "Admin Panel",
+		"addNew": "Add new row to table",
+		"editTable": "Edit table",
+		"tabs": {
+			"admins": "Administrators",
+			"technicians": "Technicians",
+			"residents": "Residents",
+			"buildings": "Buildings",
+			"elevators": "Elevators"
+		},
+		"fields": {
+			"username": "Username",
+			"name": "Name",
+			"email": "Email",
+			"password": "Password",
+			"phone": "Phone",
+			"floors": "Number of floors",
+			"installDate": "Installation date"
+		},
+		"dialog": {
+			"add": "Add new {title}",
+			"edit": "Edit {title}"
+		},
+		"errors": {
+			"loadData": "Failed to load data",
+			"delete": "Error deleting record",
+			"save": "Error saving data"
+		}
+	},
+	"buildings": {
+		"name": "Name",
+		"address": "Address",
+		"floors": "Floors"
+	},
+	"settings": {
+		"systemSettings": "System Settings",
+		"thresholds": "Threshold values",
+		"max_temperature": "Max temperature (°C)",
+		"max_humidity": "Max humidity (%)",
+		"max_weight": "Max weight (kg)",
+		"notifications": "Notifications",
+		"emailNotifications": "Email notifications",
+		"pushNotifications": "Push notifications",
+		"criticalEventsOnly": "Critical events only",
+		"saveSettings": "Save settings",
+		"saving": "Saving..."
+	}
+}

@@ -1,0 +1,134 @@
+{
+	"login": {
+		"title": "Система моніторингу ліфтів",
+		"emailLabel": "Email",
+		"passwordLabel": "Пароль",
+		"submitButton": "Увійти",
+		"logout": "Вийти",
+		"forgotPassword": "Забули пароль?"
+	},
+	"common": {
+		"actions": "Дії",
+		"add": "Додати",
+		"edit": "Редагувати",
+		"delete": "Видалити",
+		"cancel": "Скасувати",
+		"save": "Зберегти",
+		"details": "Деталі",
+		"notAvailable": "Недоступно",
+		"unknown": "Невідомо",
+		"export": "Експортувати",
+		"adminPanel": "Адміністративна панель"
+	},
+	"sidebar": {
+		"controlPanel": "Панель керування",
+		"map": "Інтерактивна карта ліфтів",
+		"reports": "Звіти",
+		"admin": "Адміністрування",
+		"settings": "Налаштування"
+	},
+	"elevatorCard": {
+		"general": "Загальна кількість ліфтів",
+		"check": "Ліфти в роботі",
+		"repair": "Ліфти на ремонті",
+		"warning": "Аварійні ліфти",
+		"temperatureStatistics": "Температура в ліфтових шахтах"
+	},
+	"elevator": {
+		"statusTitle": "Стан ліфтів",
+		"serialNumber": "Серійний номер",
+		"address": "Адреса",
+		"installed": "Встановлено",
+		"building": "Будинок",
+		"status": "Статус",
+		"lastUpdate": "Останнє оновлення",
+		"lastCheck": "Востаннє перевірено",
+		"report": "Звіт",
+		"unknown": "Невідомо",
+		"statuses": {
+			"active": "В роботі",
+			"maintenance": "На ремонті",
+			"critical": "Аварія",
+			"unknown": "Невідомо"
+		}
+	},
+	"errors": {
+		"sensorDataLoadFailed": "Не вдалося завантажити дані",
+		"invalidElevatorId": "Некоректний ідентифікатор ліфта"
+	},
+	"export": {
+		"pdf": "PDF",
+		"excel": "Excel"
+	},
+	"reports": {
+		"title": "Аналітика та звіти",
+		"tabs": {
+			"criticalStops": "Аварійні зупинки",
+			"downtimes": "Тривалість простоїв",
+			"usage": "Інтенсивність використання"
+		},
+		"elevator": "Ліфт",
+		"stopStart": "Початок простою",
+		"stopEnd": "Кінець простою",
+		"duration": "Тривалість",
+		"reason": "Причина",
+		"totalDowntime": "Загальний простій",
+		"incidentsCount": "Кількість інцидентів",
+		"usageCount": "Використань",
+		"noData": "Немає даних для відображення"
+	},
+	"admin": {
+		"title": "Адміністративна панель",
+		"addNew": "Додати новий рядок до таблиці",
+		"editTable": "Редагування таблиці",
+		"tabs": {
+			"admins": "Адміністратори",
+			"technicians": "Техніки",
+			"residents": "Мешканці",
+			"buildings": "Будинки",
+			"elevators": "Ліфти"
+		},
+		"fields": {
+			"username": "Ім'я користувача",
+			"name": "Ім'я",
+			"email": "Email",
+			"password": "Пароль",
+			"phone": "Телефон",
+			"floors": "Кількість поверхів",
+			"installDate": "Дата встановлення"
+		},
+		"dialog": {
+			"add": "Додати нового {title}",
+			"edit": "Редагувати {title}"
+		},
+		"errors": {
+			"loadData": "Не вдалося завантажити дані",
+			"delete": "Помилка видалення запису",
+			"save": "Помилка збереження даних"
+		},
+		"statusDropdown": {
+			"active": "Активний",
+			"maintenance": "Обслуговування",
+			"critical": "Аварія"
+		}
+	},
+	"buildings": {
+		"name": "Назва",
+		"address": "Адреса",
+		"floors": "Поверхи",
+		"floors_count": "Кількість поверхів"
+	},
+	"settings": {
+		"systemSettings": "Налаштування системи",
+		"thresholds": "Порогові значення",
+		"max_temperature": "Макс. температура (°C)",
+		"max_humidity": "Макс. вологість (%)",
+		"max_weight": "Макс. вага (kg)",
+		"notifications": "Сповіщення",
+		"emailNotifications": "Email-сповіщення",
+		"pushNotifications": "Пуш-сповішення",
+		"criticalEventsOnly": "Тільки критичні події",
+		"saveSettings": "Зберегти налаштування",
+		"saving": "Збереження..."
+	}
+}
