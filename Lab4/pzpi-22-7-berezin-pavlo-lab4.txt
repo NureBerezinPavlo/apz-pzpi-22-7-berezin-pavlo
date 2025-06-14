@@ -1,0 +1,695 @@
+﻿Міністерство освіти і науки України
+Харківський національний університет радіоелектроніки
+
+
+
+
+Кафедра програмної інженерії
+
+
+
+
+Звіт з лабораторної роботи № 4
+з дисципліни «Архітектура програмного забезпечення»
+на тему «Розробка програмної архітектури,
+створення та відлагодження програмного коду
+вебклієнта програмної системи»
+
+
+
+
+Виконав
+студент групи ПЗПІ-22-7
+	
+
+Березін Павло Павлович
+	
+
+Перевірив
+ст. викладач кафедри ПІ
+	
+
+
+
+Сокорчук Ігор Петрович
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Харків, 2025
+4.1 Мета роботи
+
+
+На лабораторній роботі №4 потрібно розробити клієнтську / фронтенд-частину програмної системи.
+
+
+4.2 Історія змін
+
+
+Таблиця 1 — Історія змін та виправлень роботи
+№
+	Дата
+	Версія звіту
+	Опис змін та виправлень
+	1
+	27.05.2025
+	0.1
+	Створено розділ «Історія змін»
+	2
+	27.05.2025
+	0.1
+	Створено розділ «Хід роботи»
+	3
+	27.05.2025
+	0.1
+	Створено розділ «Опис виконаної роботи»
+	4
+	27.05.2025
+	0.1
+	Створено розділ «Висновки»
+	5
+	27.05.2025
+	0.1
+	Додано посилання на відеозапис доповіді в додаток А
+	
+
+4.3 Хід роботи
+
+
+        Ця частина системи повинна підтримувати роботу клієнтів у веб-режимі та забезпечувати адміністрування системи.
+Користувацький інтерфейс та інтерфейс адміністрування повинні підтримувати інтернаціоналізацію та локалізацію, а саме забезпечувати: підтримку різних кодових таблиць символів, обчислення та формат дати та часу, локальний та універсальний час, метричні одиниці вимірювання, англійську та американську систему мір, порядок сортування текстових значень, різні напрями введення тексту тощо.
+Адміністрування системи повинно забезпечувати: управління користувачами системи, управління даними системи, створення резервних копій налаштувань та даних, експорт та імпорт даних та налаштувань, управління сертифікатами тощо.
+
+
+4.4 Опис виконаної роботи
+4.4.1 Технологічний стек та архітектура
+
+
+        Фронтенд веб-інтерфейсу системи моніторингу ліфтів розроблено з використанням сучасних технологій та бібліотек. Основним фреймворком обрано React.js, який дозволяє створювати інтерактивні та динамічні інтерфейси. Для забезпечення типізації та підвищення надійності коду використана мова TypeScript. Це дозволяє уникнути багатьох помилок на етапі розробки та полегшує підтримку проекту.
+Для побудови користувацького інтерфейсу використана бібліотека Material-UI (MUI), яка надає готові компоненти, відповідні принципам Material Design. Для візуалізації даних застосовано бібліотеку Recharts, яка дозволяє створювати різноманітні графіки та діаграми. Інтерактивна карта ліфтів реалізована за допомогою бібліотек Leaflet та React-Leaflet, що забезпечує відображення маркерів ліфтів з різними кольорами залежно від їх статусу.
+Керування станом додатка організовано за допомогою Redux Toolkit, який спрощує роботу з глобальним станом та дозволяє ефективно керувати даними. Для маршрутизації між сторінками використано React Router, що забезпечує зручну навігацію та захист роутів. Для взаємодії з бекендом застосовано HTTP-клієнт Axios, який налаштований для роботи з JWT-токенами та обробки помилок.
+
+
+4.4.2 Основні модулі та сторінки
+
+
+        Система включає кілька ключових модулів. Автентифікація та авторизація реалізовані через сторінку входу, де користувачі (адміністратори, техніки) можуть увійти до системи. Ролі користувачів визначають їхні права доступу: адміністратори мають повний доступ, тоді як технічний персонал обмежений у діях.
+Панель адміністратора дозволяє керувати користувачами (CRUD-операції для адміністраторів, техніків, мешканців), об’єктами (будинки, ліфти) та переглядати журнал активності. Інтерактивна карта ліфтів відображає маркери з різними кольорами (зелений — працює, жовтий — ремонт, червоний — аварія) та попапи з детальною інформацією.
+Моніторинг у реальному часі включає дашборд з віджетами, які показують загальну кількість ліфтів, аварій, графіки температури та вологості. Система звітів надає можливість аналізувати аварійні зупинки, тривалість простоїв та інтенсивність використання ліфтів, а також експортувати дані у PDF або Excel.
+Налаштування системи дозволяють конфігурувати порогові значення для сенсорів (температура, вологість, вага) та налаштовувати сповіщення через email- або push-повідомлення.
+
+4.4.3 Інтеграція з API
+
+
+        Для взаємодії з бекендом використано Axios з глобальним інтерцептором, який додає JWT-токени до заголовків запитів та обробляє помилки. Основні ендпоінти включають отримання списку ліфтів, даних сенсорів, порогових значень тощо. Для відображення помилок використано компоненти MUI Snackbar.
+
+
+4.4.4 Особливості реалізації
+        
+        Проєкт включає адаптивний дизайн для роботи на різних пристроях, підтримку локалізації українською та англійською через JSON-файли перекладів, а також модульну структуру для зручної підтримки та розширення. Для тестування використано Jest та React Testing Library.
+
+
+4.5 Висновки
+        
+Розроблений фронтенд забезпечує зручний та функціональний інтерфейс для моніторингу та керування ліфтами. Використання сучасних технологій та бібліотек дозволило створити продуктивний і масштабований додаток з можливістю подальшого вдосконалення.
+
+
+
+
+ДОДАТОК А
+Посилання на відеозапис та хронологічний опис доповіді
+
+
+Відеозапис доповіді на YouTube: https://youtu.be/oMh75Kg_v50 
+
+
+00:00 Вступ
+00:10 Авторизація
+00:35 Головна сторінка адміністратора
+00:42 Локалізація
+01:05 Інтерактивна карта ліфтів
+02:25 Формування звітів та статистика
+03:56 Експорт у PDF та Excel
+04:20 Панель адміністрування з таблицями
+06:05 Налаштування
+________________
+ДОДАТОК Б
+UML-діаграми
+
+
+  
+
+Рисунок Б.1 — UML-діаграма прецедентів (Use Case Diagram) фронтенду
+
+
+  
+
+Рисунок Б.2 — UML-діаграма компонентів (Component Diagram)
+
+
+  
+
+Рисунок Б.3 — UML-діаграма взаємодії (Interaction Overview Diagram
+
+
+  
+
+Рисунок Б.4.1 — UML-діаграма діяльності (Activity Diagram), частина 1
+
+
+  
+
+Рисунок Б.4.2 — UML-діаграма діяльності (Activity Diagram), частина 2
+________________
+ДОДАТОК В
+Фрагменти програмного коду
+
+
+Панель адміністрації
+
+
+  1. import React, { useState, useEffect } from 'react';
+  2. import { Box, Typography, Tabs, Tab, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, MenuItem, CircularProgress } from '@mui/material';
+  3. import { DataGrid, GridColDef, GridToolbar, GridActionsCellItem, GridCellParams, GridRowParams } from '@mui/x-data-grid';
+  4. import DeleteIcon from '@mui/icons-material/Delete';
+  5. import EditIcon from '@mui/icons-material/Edit';
+  6. import AddIcon from '@mui/icons-material/Add';
+  7. import api from '../services/api';
+  8. import { Building } from '../types/types';
+  9. import { useTranslation } from 'react-i18next';
+ 10.
+ 11. const AdminPage: React.FC = () => {
+ 12.    const { t } = useTranslation();
+ 13.    const [tabValue, setTabValue] = useState(0);
+ 14.    const [openDialog, setOpenDialog] = useState(false);
+ 15.    const [dialogMode, setDialogMode] = useState<'create' | 'edit'>('create');
+ 16.    const [currentItem, setCurrentItem] = useState<any>(null);
+ 17.    const [loading, setLoading] = useState(true);
+ 18.    const [error, setError] = useState<string | null>(null);
+ 19.
+ 20.    // Дані для таблиць
+ 21.    const [admins, setAdmins] = useState<any[]>([]);
+ 22.    const [technicians, setTechnicians] = useState<any[]>([]);
+ 23.    const [residents, setResidents] = useState<any[]>([]);
+ 24.    const [buildings, setBuildings] = useState<Building[]>([]);
+ 25.    const [elevators, setElevators] = useState<any[]>([]);
+ 26.
+ 27.    // Форма для створення/редагування
+ 28.    const [formData, setFormData] = useState<any>({});
+ 29.
+ 30.    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+ 31.            setTabValue(newValue);
+ 32.    };
+ 33.
+ 34.    const fetchData = async () => {
+ 35.            setLoading(true);
+ 36.            setError(null);
+ 37.
+ 38.            try {
+ 39.                    // Оновлені URL з /list
+ 40.                    const endpoints = ['/admins/list', '/technicians/list', '/residents/list', '/buildings/', '/elevators/'];
+ 41.
+ 42.                    const responses = await Promise.all(endpoints.map((endpoint) => api.get(endpoint)));
+ 43.
+ 44.                    setAdmins(responses[0].data);
+ 45.                    setTechnicians(responses[1].data);
+ 46.                    setResidents(responses[2].data);
+ 47.                    setBuildings(responses[3].data);
+ 48.                    setElevators(responses[4].data);
+ 49.            } catch (err) {
+ 50.                    setError(t('admin.errors.loadData'));
+ 51.                    console.error('Error loading data:', err);
+ 52.            } finally {
+ 53.                    setLoading(false);
+ 54.            }
+ 55.    };
+ 56.
+ 57.    useEffect(() => {
+ 58.            fetchData();
+ 59.    }, []);
+ 60.
+ 61.    const handleCreateClick = () => {
+ 62.            setDialogMode('create');
+ 63.            setFormData({});
+ 64.            // Встановлюємо значення за замовчуванням для статусу
+ 65.            setFormData({
+ 66.                    status: 'active'
+ 67.            });
+ 68.            setCurrentItem(null);
+ 69.            setOpenDialog(true);
+ 70.    };
+ 71.
+ 72.    const handleEditClick = (item: any) => {
+ 73.            setDialogMode('edit');
+ 74.            setCurrentItem(item);
+ 75.            setFormData({ ...item });
+ 76.            setOpenDialog(true);
+ 77.    };
+ 78.
+ 79.    const handleDeleteClick = async (id: number) => {
+ 80.            try {
+ 81.                    let endpoint = '';
+ 82.                    switch (tabValue) {
+ 83.                            case 0:
+ 84.                                    endpoint = `/admins/${id}`;
+ 85.                                    break;
+ 86.                            case 1:
+ 87.                                    endpoint = `/technicians/${id}`;
+ 88.                                    break;
+ 89.                            case 2:
+ 90.                                    endpoint = `/residents/${id}`;
+ 91.                                    break;
+ 92.                            case 3:
+ 93.                                    endpoint = `/buildings/${id}`;
+ 94.                                    break;
+ 95.                            case 4:
+ 96.                                    endpoint = `/elevators/${id}`;
+ 97.                                    break;
+ 98.                    }
+ 99.
+100.                    await api.delete(endpoint);
+101.                    fetchData();
+102.            } catch (err) {
+103.                    setError(t('admin.errors.delete'));
+104.                    console.error('Помилка видалення:', err);
+105.            }
+106.    };
+107.
+108.    const handleFormSubmit = async () => {
+109.            try {
+110.                    let endpoint = '';
+111.                    let method = 'post';
+112.                    let data = formData;
+113.
+114.                    console.log('Form data before submit:', data); // Додайте цей рядок
+115.
+116.                    switch (tabValue) {
+117.                            case 0:
+118.                                    endpoint = dialogMode === 'create' ? '/admins/register' : `/admins/${currentItem.id}`;
+119.                                    method = dialogMode === 'create' ? 'post' : 'put';
+120.                                    break;
+121.                            case 1:
+122.                                    endpoint = dialogMode === 'create' ? '/technicians/register' : `/technicians/${currentItem.id}`;
+123.                                    method = dialogMode === 'create' ? 'post' : 'put';
+124.                                    break;
+125.                            case 2:
+126.                                    endpoint = dialogMode === 'create' ? '/residents/register' : `/residents/${currentItem.id}`;
+127.                                    method = dialogMode === 'create' ? 'post' : 'put';
+128.                                    break;
+129.                            case 3:
+130.                                    endpoint = dialogMode === 'create' ? '/buildings/' : `/buildings/${currentItem.id}`;
+131.                                    method = dialogMode === 'create' ? 'post' : 'put';
+132.                                    break;
+133.                            case 4:
+134.                                    endpoint = dialogMode === 'create' ? '/elevators/' : `/elevators/${currentItem.id}`;
+135.                                    method = dialogMode === 'create' ? 'post' : 'put';
+136.                                    break;
+137.                    }
+138.
+139.                    if (method === 'post') {
+140.                            await api.post(endpoint, data);
+141.                    } else {
+142.                            await api.put(endpoint, data);
+143.                    }
+144.
+145.                    setOpenDialog(false);
+146.                    fetchData();
+147.            } catch (err) {
+148.                    setError(t('admin.errors.save'));
+149.                    console.error('Помилка збереження:', err);
+150.            }
+151.    };
+152.
+153.    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+154.            const { name, value } = e.target;
+155.            setFormData({
+156.                    ...formData,
+157.                    [name]: value
+158.            });
+159.    };
+160.
+161.    // Колонки для кожної таблиці
+162.    const adminColumns: GridColDef[] = [
+163.            { field: 'id', headerName: 'ID', width: 70 },
+164.            { field: 'username', headerName: t('admin.fields.username'), width: 200 },
+165.            { field: 'email', headerName: t('admin.fields.email'), width: 250 },
+166.            {
+167.                    field: 'actions',
+168.                    headerName: t('common.actions'),
+169.                    type: 'actions',
+170.                    width: 150,
+171.                    getActions: (params) => [<GridActionsCellItem icon={<EditIcon />} label={t('common.edit')} onClick={() => handleEditClick(params.row)} />, <GridActionsCellItem icon={<DeleteIcon />} label={t('common.delete')} onClick={() => handleDeleteClick(params.id as number)} />]
+172.            }
+173.    ];
+174.
+175.    const technicianColumns: GridColDef[] = [
+176.            { field: 'id', headerName: 'ID', width: 70 },
+177.            { field: 'name', headerName: t('admin.fields.name'), width: 200 },
+178.            { field: 'phone_number', headerName: t('admin.fields.phone'), width: 150 },
+179.            { field: 'email', headerName: t('admin.fields.email'), width: 250 },
+180.            {
+181.                    field: 'actions',
+182.                    headerName: t('common.actions'),
+183.                    type: 'actions',
+184.                    width: 150,
+185.                    getActions: (params) => [<GridActionsCellItem icon={<EditIcon />} label={t('common.edit')} onClick={() => handleEditClick(params.row)} />, <GridActionsCellItem icon={<DeleteIcon />} label={t('common.delete')} onClick={() => handleDeleteClick(params.id as number)} />]
+186.            }
+187.    ];
+188.
+189.    const residentColumns: GridColDef[] = [
+190.            { field: 'id', headerName: 'ID', width: 70 },
+191.            { field: 'name', headerName: t('admin.fields.name'), width: 200 },
+192.            { field: 'email', headerName: t('admin.fields.email'), width: 250 },
+193.            {
+194.                    field: 'building_id',
+195.                    headerName: t('admin.tabs.buildings'),
+196.                    width: 200,
+197.                    valueGetter: (params: GridCellParams) => {
+198.                            const bId = Number(params);
+199.                            const building = buildings.find((b) => b.id === bId);
+200.                            return building ? building.name : t('common.unknown');
+201.                    }
+202.            },
+203.            {
+204.                    field: 'actions',
+205.                    headerName: t('common.actions'),
+206.                    type: 'actions',
+207.                    width: 150,
+208.                    getActions: (params: GridRowParams) => [<GridActionsCellItem icon={<EditIcon />} label={t('common.edit')} onClick={() => handleEditClick(params.row)} />, <GridActionsCellItem icon={<DeleteIcon />} label={t('common.delete')} onClick={() => handleDeleteClick(params.id as number)} />]
+209.            }
+210.    ];
+211.
+212.    const buildingColumns: GridColDef[] = [
+213.            { field: 'id', headerName: 'ID', width: 70 },
+214.            { field: 'name', headerName: t('buildings.name'), width: 200 },
+215.            { field: 'address', headerName: t('buildings.address'), width: 300 },
+216.            { field: 'num_floors', headerName: t('buildings.floors'), width: 100 },
+217.            {
+218.                    field: 'actions',
+219.                    headerName: t('common.actions'),
+220.                    type: 'actions',
+221.                    width: 150,
+222.                    getActions: (params) => [<GridActionsCellItem icon={<EditIcon />} label={t('common.edit')} onClick={() => handleEditClick(params.row)} />, <GridActionsCellItem icon={<DeleteIcon />} label={t('common.delete')} onClick={() => handleDeleteClick(params.id as number)} />]
+223.            }
+224.    ];
+225.
+226.    const elevatorColumns: GridColDef[] = [
+227.            { field: 'id', headerName: 'ID', width: 70 },
+228.            { field: 'serial_number', headerName: t('elevator.serialNumber'), width: 200 },
+229.            {
+230.                    field: 'building_id',
+231.                    headerName: t('elevator.building'),
+232.                    width: 200,
+233.                    valueGetter: (params: GridCellParams) => {
+234.                            const bId = Number(params);
+235.                            const building = buildings.find((b) => b.id === bId);
+236.                            return building ? building.name : t('common.unknown');
+237.                    }
+238.            },
+239.            {
+240.                    field: 'status',
+241.                    headerName: t('elevator.status'),
+242.                    width: 150,
+243.                    valueGetter: (params: GridCellParams) => {
+244.                            // це я теж нарешті виправив
+245.                            const statusString = String(params);
+246.                            switch (statusString) {
+247.                                    case 'active':
+248.                                            return t('elevator.statuses.active');
+249.                                    case 'maintenance':
+250.                                            return t('elevator.statuses.maintenance');
+251.                                    case 'critical':
+252.                                            return t('elevator.statuses.critical');
+253.                                    default:
+254.                                            return statusString;
+255.                            }
+256.                    }
+257.            },
+258.            {
+259.                    field: 'actions',
+260.                    headerName: t('common.actions'),
+261.                    type: 'actions',
+262.                    width: 150,
+263.                    getActions: (params: GridRowParams) => [<GridActionsCellItem icon={<EditIcon />} label={t('common.edit')} onClick={() => handleEditClick(params.row)} />, <GridActionsCellItem icon={<DeleteIcon />} label={t('common.delete')} onClick={() => handleDeleteClick(params.id as number)} />]
+264.            }
+265.    ];
+266.
+267.    // Визначення поточних даних і колонок
+268.    const getCurrentData = () => {
+269.            switch (tabValue) {
+270.                    case 0:
+271.                            return { data: admins, columns: adminColumns, title: t('admin.tabs.admins') };
+272.                    case 1:
+273.                            return { data: technicians, columns: technicianColumns, title: t('admin.tabs.technicians') };
+274.                    case 2:
+275.                            return { data: residents, columns: residentColumns, title: t('admin.tabs.residents') };
+276.                    case 3:
+277.                            return { data: buildings, columns: buildingColumns, title: t('admin.tabs.buildings') };
+278.                    case 4:
+279.                            return { data: elevators, columns: elevatorColumns, title: t('admin.tabs.elevators') };
+280.                    default:
+281.                            return { data: [], columns: [], title: '' };
+282.            }
+283.    };
+284.
+285.    const { data, columns, title } = getCurrentData();
+286.
+287.    // Рендер форми відповідно до обраної вкладки
+288.    const renderForm = () => {
+289.            switch (tabValue) {
+290.                    case 0: // Адміністратори
+291.                            return (
+292.                                    <>
+293.                                            <TextField name="username" label={t('admin.fields.username')} fullWidth margin="normal" value={formData.username || ''} onChange={handleInputChange} />
+294.                                            <TextField name="email" label={t('admin.fields.email')} fullWidth margin="normal" value={formData.email || ''} onChange={handleInputChange} />
+295.                                            <TextField name="password" label={t('admin.fields.password')} type="password" fullWidth margin="normal" value={formData.password || ''} onChange={handleInputChange} />
+296.                                    </>
+297.                            );
+298.
+299.                    case 1: // Техніки
+300.                            return (
+301.                                    <>
+302.                                            <TextField name="name" label={t('admin.fields.name')} fullWidth margin="normal" value={formData.name || ''} onChange={handleInputChange} />
+303.                                            <TextField name="phone_number" label="Телефон" fullWidth margin="normal" value={formData.phone_number || ''} onChange={handleInputChange} />
+304.                                            <TextField name="email" label={t('admin.fields.email')} fullWidth margin="normal" value={formData.email || ''} onChange={handleInputChange} />
+305.                                            <TextField name="password" label={t('admin.fields.password')} type="password" fullWidth margin="normal" value={formData.password || ''} onChange={handleInputChange} />
+306.                                    </>
+307.                            );
+308.
+309.                    case 2: // Мешканці
+310.                            return (
+311.                                    <>
+312.                                            <TextField name="name" label={t('admin.fields.name')} fullWidth margin="normal" value={formData.name || ''} onChange={handleInputChange} />
+313.                                            <TextField name="email" label={t('admin.fields.email')} fullWidth margin="normal" value={formData.email || ''} onChange={handleInputChange} />
+314.                                            <TextField name="password" label={t('admin.fields.password')} type="password" fullWidth margin="normal" value={formData.password || ''} onChange={handleInputChange} />
+315.                                            <TextField name="building_id" label={t('elevator.building')} select fullWidth margin="normal" value={formData.building_id || ''} onChange={handleInputChange}>
+316.                                                    {buildings.map((building) => (
+317.                                                            <MenuItem key={building.id} value={building.id}>
+318.                                                                    {building.name}
+319.                                                            </MenuItem>
+320.                                                    ))}
+321.                                            </TextField>
+322.                                    </>
+323.                            );
+324.
+325.                    case 3: // Будинки
+326.                            return (
+327.                                    <>
+328.                                            <TextField name="name" label={t('buildings.name')} fullWidth margin="normal" value={formData.name || ''} onChange={handleInputChange} />
+329.                                            <TextField name="address" label={t('elevator.address')} fullWidth margin="normal" value={formData.address || ''} onChange={handleInputChange} />
+330.                                            <TextField name="num_floors" label={t('buildings.floors_count')} type="number" fullWidth margin="normal" value={formData.num_floors || ''} onChange={handleInputChange} />
+331.                                    </>
+332.                            );
+333.
+334.                    case 4: // Ліфти
+335.                            return (
+336.                                    <>
+337.                                            <TextField name="serial_number" label={t('elevator.serialNumber')} fullWidth margin="normal" value={formData.serial_number || ''} onChange={handleInputChange} required />
+338.                                            <TextField name="building_id" label={t('elevator.building')} select fullWidth margin="normal" value={formData.building_id || ''} onChange={handleInputChange} required>
+339.                                                    {buildings.map((building) => (
+340.                                                            <MenuItem key={building.id} value={building.id}>
+341.                                                                    {building.name}
+342.                                                            </MenuItem>
+343.                                                    ))}
+344.                                            </TextField>
+345.                                            <TextField name="status" label={t('elevator.status')} select fullWidth margin="normal" value={formData.status || 'active'} onChange={handleInputChange} required>
+346.                                                    <MenuItem value="active">{t('admin.statusDropdown.active')}</MenuItem>
+347.                                                    <MenuItem value="maintenance">{t('admin.statusDropdown.maintenance')}</MenuItem>
+348.                                                    <MenuItem value="critical">{t('admin.statusDropdown.critical')}</MenuItem>
+349.                                            </TextField>
+350.                                            <TextField name="install_date" label={t('admin.fields.installDate')} type="date" fullWidth margin="normal" InputLabelProps={{ shrink: true }} value={formData.install_date || ''} onChange={handleInputChange} />
+351.                                    </>
+352.                            );
+353.
+354.                    default:
+355.                            return null;
+356.            }
+357.    };
+358.
+359.    return (
+360.            <div>
+361.                    <Box sx={{ p: 3 }}>
+362.                            <Typography variant="h4" gutterBottom>
+363.                                    {t('common.adminPanel')}
+364.                            </Typography>
+365.
+366.                            <Tabs value={tabValue} onChange={handleChange} sx={{ mb: 3 }}>
+367.                                    <Tab label={t('admin.tabs.admins')} />
+368.                                    <Tab label={t('admin.tabs.technicians')} />
+369.                                    <Tab label={t('admin.tabs.residents')} />
+370.                                    <Tab label={t('admin.tabs.buildings')} />
+371.                                    <Tab label={t('admin.tabs.elevators')} />
+372.                            </Tabs>
+373.
+374.                            {error && (
+375.                                    <Typography color="error" sx={{ mb: 2 }}>
+376.                                            {error}
+377.                                    </Typography>
+378.                            )}
+379.
+380.                            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+381.                                    <Button variant="contained" startIcon={<AddIcon />} onClick={handleCreateClick}>
+382.                                            {t('common.add')}
+383.                                    </Button>
+384.                            </Box>
+385.
+386.                            {loading ? (
+387.                                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+388.                                            <CircularProgress />
+389.                                    </Box>
+390.                            ) : (
+391.                                    <Box sx={{ height: 600, width: '100%', bgcolor: 'background.paper' }}>
+392.                                            <DataGrid rows={data} columns={columns} slots={{ toolbar: GridToolbar }} disableRowSelectionOnClick />
+393.                                    </Box>
+394.                            )}
+395.
+396.                            <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+397.                                    <DialogTitle>{dialogMode === 'create' ? `${t('admin.addNew')} ${title.toLowerCase()}` : `${t('admin.editTable')} ${title.toLowerCase()}`}</DialogTitle>
+398.                                    <DialogContent>{renderForm()}</DialogContent>
+399.                                    <DialogActions>
+400.                                            <Button onClick={() => setOpenDialog(false)}>{t('common.cancel')}</Button>
+401.                                            <Button onClick={handleFormSubmit} variant="contained">
+402.                                                    {t('common.save')}
+403.                                            </Button>
+404.                                    </DialogActions>
+405.                            </Dialog>
+406.                    </Box>
+407.            </div>
+408.    );
+409. };
+410.
+411. export default AdminPage;
+
+
+Карта з ліфтами:
+
+
+  1. import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+  2. import { fetchElevators as fetchElevatorsApi, fetchElevatorDetails, FullElevator } from '../services/elevatorService';
+  3. import type { RootState } from '../store';
+  4. import { Building } from '../types/types';
+  5.
+  6. interface ElevatorState {
+  7.    elevators: FullElevator[];
+  8.    loading: boolean;
+  9.    error: string | null;
+ 10.    selectedElevator: FullElevator | null;
+ 11.    buildings: Building[];
+ 12. }
+ 13.
+ 14. const initialState: ElevatorState = {
+ 15.    elevators: [],
+ 16.    loading: false,
+ 17.    error: null,
+ 18.    selectedElevator: null,
+ 19.    buildings: []
+ 20. };
+ 21.
+ 22. export const fetchElevators = createAsyncThunk('elevators/fetchAll', async (_, { rejectWithValue }) => {
+ 23.    try {
+ 24.            return await fetchElevatorsApi();
+ 25.    } catch (error) {
+ 26.            return rejectWithValue((error as Error).message);
+ 27.    }
+ 28. });
+ 29.
+ 30. export const fetchElevatorById = createAsyncThunk('elevators/fetchById', async (id: number, { rejectWithValue }) => {
+ 31.    try {
+ 32.            const elevator = await fetchElevatorDetails(id);
+ 33.            const buildingsMap = new Map<number, Building>();
+ 34.
+ 35.            // Перетворюємо Elevator у FullElevator з дефолтними координатами
+ 36.            return {
+ 37.                    ...elevator,
+ 38.                    latitude: elevator.latitude || 0,
+ 39.                    longitude: elevator.longitude || 0,
+ 40.                    building: buildingsMap.get(elevator.building_id)
+ 41.            } as FullElevator;
+ 42.    } catch (error) {
+ 43.            return rejectWithValue((error as Error).message);
+ 44.    }
+ 45. });
+ 46.
+ 47. const elevatorSlice = createSlice({
+ 48.    name: 'elevators',
+ 49.    initialState,
+ 50.    reducers: {
+ 51.            selectElevator: (state, action: PayloadAction<number>) => {
+ 52.                    state.selectedElevator = state.elevators.find((e) => e.id === action.payload) || null;
+ 53.            },
+ 54.            updateElevatorStatus: (state, action: PayloadAction<{ id: number; status: 'active' | 'maintenance' | 'critical' }>) => {
+ 55.                    const elevator = state.elevators.find((e) => e.id === action.payload.id);
+ 56.                    if (elevator) {
+ 57.                            elevator.status = action.payload.status;
+ 58.                    }
+ 59.            }
+ 60.    },
+ 61.    extraReducers: (builder) => {
+ 62.            builder
+ 63.                    .addCase(fetchElevators.pending, (state) => {
+ 64.                            state.loading = true;
+ 65.                            state.error = null;
+ 66.                    })
+ 67.                    .addCase(fetchElevators.fulfilled, (state, action) => {
+ 68.                            state.loading = false;
+ 69.                            state.elevators = action.payload;
+ 70.                    })
+ 71.                    .addCase(fetchElevators.rejected, (state, action) => {
+ 72.                            state.loading = false;
+ 73.                            state.error = action.payload as string;
+ 74.                    })
+ 75.                    .addCase(fetchElevatorById.pending, (state) => {
+ 76.                            state.loading = true;
+ 77.                            state.error = null;
+ 78.                    })
+ 79.                    .addCase(fetchElevatorById.fulfilled, (state, action) => {
+ 80.                            state.loading = false;
+ 81.                            state.selectedElevator = action.payload;
+ 82.
+ 83.                            // Оновлюємо ліфт у загальному списку
+ 84.                            const index = state.elevators.findIndex((e) => e.id === action.payload.id);
+ 85.                            if (index !== -1) {
+ 86.                                    state.elevators[index] = action.payload;
+ 87.                            }
+ 88.                    })
+ 89.                    .addCase(fetchElevatorById.rejected, (state, action) => {
+ 90.                            state.loading = false;
+ 91.                            state.error = action.payload as string;
+ 92.                    });
+ 93.    }
+ 94. });
+ 95.
+ 96. export const { selectElevator, updateElevatorStatus } = elevatorSlice.actions;
+ 97. export default elevatorSlice.reducer;
