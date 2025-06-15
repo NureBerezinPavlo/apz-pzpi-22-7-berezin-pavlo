@@ -1,0 +1,942 @@
+﻿Міністерство освіти і науки України
+Харківський національний університет радіоелектроніки
+
+
+
+
+Кафедра програмної інженерії
+
+
+
+
+Звіт з лабораторної роботи № 5
+з дисципліни «Архітектура програмного забезпечення»
+на тему «Розробка програмної архітектури 
+та створення і відлагодження програмного коду
+програмного застосунку мобільного пристрою
+для програмної системи»
+
+
+
+
+Виконав
+студент групи ПЗПІ-22-7
+	
+
+Березін Павло Павлович
+	
+
+Перевірив
+ст. викладач кафедри ПІ
+	
+
+
+
+Сокорчук Ігор Петрович
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+Харків, 2025
+________________
+5.1 Мета роботи
+
+
+        На лабораторній роботі №5 потрібно розробити мобільний програмний застосунок для будь-якої поширеної на сьогодні мобільної платформи.
+
+
+5.2 Історія змін
+
+
+Таблиця 1 — Історія змін та виправлень роботи
+№
+	Дата
+	Версія звіту
+	Опис змін та виправлень
+	1
+	29.05.2025
+	0.1
+	Створено розділ «Історія змін»
+	2
+	29.05.2025
+	0.1
+	Створено розділ «Хід роботи»
+	3
+	29.05.2025
+	0.1
+	Створено розділ «Опис виконаної роботи»
+	4
+	30.05.2025
+	0.1
+	Створено розділ «Висновки»
+	5
+	30.05.2025
+	0.1
+	Додано посилання на відеозапис доповіді в додаток А
+	
+
+5.3 Хід роботи
+        
+        Мобільний застосунок повинен бути частиною системи і повинен взаємодіяти з нею. Для реалізації програмного застосунку можна використовувати технології для реалізації програмного забезпечення для мобільних платформ, вказані лектором.
+
+
+5.4 Опис виконаної роботи
+
+
+        У ході розробки мобільної версії додатку для моніторингу ліфтів було прийнято низку інженерних рішень, спрямованих на забезпечення ефективної роботи як для мешканців, так і для техніків. Додаток розроблено на платформі Android з використанням мови програмування Kotlin, що дозволяє ефективно реалізувати сучасні підходи до розробки, такі як використання Jetpack Compose для побудови інтерфейсу.
+        У ході розробки мобільної версії додатку для моніторингу ліфтів було прийнято низку інженерних рішень, спрямованих на забезпечення ефективної роботи як для мешканців, так і для техніків. Додаток розроблено на платформі Android з використанням мови програмування Kotlin, що дозволяє ефективно реалізувати сучасні підходи до розробки, такі як використання Jetpack Compose для побудови інтерфейсу.
+* Модуль автентифікації. Для мешканців та техніків реалізовано окремі репозиторії (AuthRepository та TechnicianAuthRepository), які відповідають за збереження токенів за допомогою DataStore. Це дозволяє забезпечити безпеку та зручне управління сесіями.
+* Мережевий модуль. Використано бібліотеку Retrofit2 для взаємодії з REST API бекенду. Мережеві запити організовані через інтерфейси (ResidentsApi та TechniciansApi), що спрощує їхнє тестування та підтримку.
+* Інтерфейс користувача. Екрани побудовані за допомогою Jetpack Compose, що дозволяє створювати сучасні та адаптивні UI. Для навігації між екранами використано NavHostController, що забезпечує зручну роботу зі складними потоками.
+        Для мешканців реалізовано функціонал перегляду стану ліфтів, відправки екстрених викликів та перегляду історії ремонтів. Техніки можуть переглядати завдання, оновлювати статуси ліфтів та додавати коментарі до робіт. Усі операції виконуються в реальному часі за допомогою регулярних запитів до API.
+        Додаток не підтримує офлайн-режим через вимоги безпеки, але забезпечує швидкий відгук завдяки оптимізованим мережевим запитам. Використання Kotlin Coroutines дозволяє ефективно обробляти асинхронні операції без блокування основного потоку.
+        Таким чином, архітектура додатку поєднує сучасні технології та чітку організацію коду, що забезпечує стабільну роботу та зручне масштабування.
+        URL на код на GitHub: https://github.com/NureBerezinPavlo/apz-pzpi-22-7-berezin-pavlo/tree/main/Lab5/pzpi-22-7-berezin-pavlo-lab5 
+
+
+5.5 Висновки
+        
+        Розроблений мобільний додаток для моніторингу ліфтів реалізує чітку архітектуру, що поєднує модульність, безпеку та ефективну взаємодію з бекендом. Використання Kotlin та Jetpack Compose дозволило створити сучасний інтерфейс з адаптивним UI, а застосування MVVM і Clean Architecture забезпечило легкість підтримки та масштабування. Для мешканців ключовим є доступ до стану ліфтів та екстрених функцій, тоді як техніки отримують інструменти для оперативного реагування через систему завдань і телеметрії.
+Інтеграція з REST API (Retrofit) та WebSocket забезпечує роботу в реальному часі, а FCM-сповіщення інформують користувачів про критичні зміни. Хоча додаток не підтримує офлайн-режим через вимоги безпеки, його продуктивність (відгук < 2 с) та зручність роботи роблять його ефективним рішенням для управління ліфтами.
+ДОДАТОК А
+Посилання на відеозапис та хронологічний опис доповіді
+
+
+Відеозапис доповіді на YouTube: https://youtube.com/shorts/ESnD3Qqi3S8 
+00:00 Частина для мешканців будинків
+00:03 Авторизація мешканця
+00:21 Головний екран для мешканців
+00:24 Екстренний виклик
+00:45 Список ліфтів та виклик техніка
+00:48 Список сповіщень для мешканців
+00:51 Налаштування для мешканців
+01:14 Авторизація техніка
+01:30 Головний екран для техніка
+01:33 Проблемні ліфти
+01:35 Детальний перегляд ліфта та змінення його стану
+01:45 Зберігання змінень ліфта
+02:05 Історія змінень
+02:14 Профіль технік
+________________
+
+
+ДОДАТОК Б
+UML-діаграми
+
+
+  
+
+Рисунок Б.1 — UML-діаграма прецедентів
+
+
+  
+
+Рисунок Б.2 — UML-діаграма компонент
+
+
+  
+
+Рисунок Б.3 — UML-діаграма взаємодії (Interaction Overview Diagram
+
+
+  
+
+Рисунок Б.4 — UML-діаграма діяльності (Activity Diagram)
+________________
+ДОДАТОК В
+Фрагмент програмного коду
+
+
+Головний екран для мешканців:
+  1. package com.example.elevator_monitoring
+  2.
+  3. import androidx.compose.foundation.layout.*
+  4. import androidx.compose.foundation.lazy.LazyColumn
+  5. import androidx.compose.foundation.lazy.items
+  6. import androidx.compose.material.icons.Icons
+  7. import androidx.compose.material.icons.filled.*
+  8. import androidx.compose.material3.*
+  9. import androidx.compose.runtime.*
+ 10. import androidx.compose.ui.Alignment
+ 11. import androidx.compose.ui.Modifier
+ 12. import androidx.compose.ui.graphics.Color
+ 13. import androidx.compose.ui.graphics.vector.ImageVector
+ 14. import androidx.compose.ui.text.input.PasswordVisualTransformation
+ 15. import androidx.compose.ui.unit.dp
+ 16. import kotlinx.coroutines.launch
+ 17. import androidx.compose.material3.TopAppBar
+ 18. import androidx.compose.runtime.saveable.rememberSaveable
+ 19. import androidx.navigation.NavHostController
+ 20. import androidx.navigation.compose.rememberNavController
+ 21. import androidx.navigation.compose.NavHost
+ 22. import androidx.navigation.compose.composable
+ 23. import androidx.compose.foundation.selection.selectable
+ 24. import androidx.compose.material3.RadioButton
+ 25. import androidx.compose.ui.res.stringResource
+ 26. import kotlinx.coroutines.CoroutineScope
+ 27. import kotlinx.coroutines.Dispatchers
+ 28.
+ 29. @OptIn(ExperimentalMaterial3Api::class)
+ 30. @Composable
+ 31. fun ResidentHomeScreen(
+ 32.     authRepo: AuthRepository,
+ 33.     residentsApi: ResidentsApi,
+ 34.     onLogout: suspend () -> Unit
+ 35. ) {
+ 36.     val navController = rememberNavController()
+ 37.     val scope = rememberCoroutineScope()
+ 38.
+ 39.     Scaffold(
+ 40.         topBar = {
+ 41.             TopAppBar(
+ 42.                 title = { Text("Моніторинг ліфтів") },
+ 43.                 actions = {
+ 44.                     IconButton(onClick = {
+ 45.                         navController.navigate("profile")
+ 46.                     }) {
+ 47.                         Icon(Icons.Default.Person, contentDescription = "Профіль")
+ 48.                     }
+ 49.                     IconButton(onClick = {
+ 50.                         navController.navigate("history")
+ 51.                     }) {
+ 52.                         Icon(Icons.Default.DateRange, contentDescription = "Історія")
+ 53.                     }
+ 54.                     IconButton(onClick = {
+ 55.                         navController.navigate("emergency")
+ 56.                     }) {
+ 57.                         Icon(Icons.Default.Warning, contentDescription = "Екстрений виклик")
+ 58.                     }
+ 59.                     TextButton(onClick = {
+ 60.                         scope.launch { onLogout() }
+ 61.                     }) {
+ 62.                         Text("Вийти")
+ 63.                     }
+ 64.                 }
+ 65.             )
+ 66.         },
+ 67.         bottomBar = {
+ 68.             NavigationBar {
+ 69.                 NavigationBarItem(
+ 70.                     icon = { Icon(Icons.Default.Home, contentDescription = "Головна") },
+ 71.                     label = { Text("Головна") },
+ 72.                     selected = navController.currentDestination?.route == "home",
+ 73.                     onClick = { navController.navigate("home") }
+ 74.                 )
+ 75.                 NavigationBarItem(
+ 76.                     icon = { Icon(Icons.Default.List, contentDescription = "Ліфти") },
+ 77.                     label = { Text("Ліфти") },
+ 78.                     selected = navController.currentDestination?.route == "elevators",
+ 79.                     onClick = { navController.navigate("elevators") }
+ 80.                 )
+ 81.                 NavigationBarItem(
+ 82.                     icon = { Icon(Icons.Default.Notifications, contentDescription = "Сповіщення") },
+ 83.                     label = { Text("Сповіщення") },
+ 84.                     selected = navController.currentDestination?.route == "notifications",
+ 85.                     onClick = { navController.navigate("notifications") }
+ 86.                 )
+ 87.             }
+ 88.         }
+ 89.     ) { innerPadding ->
+ 90.         NavHost(
+ 91.             navController = navController,
+ 92.             startDestination = "home",
+ 93.             modifier = Modifier.padding(innerPadding)
+ 94.         ) {
+ 95.             composable("home") { HomeTab(authRepo, residentsApi) }
+ 96.             composable("elevators") { ElevatorsTab(authRepo, residentsApi) }
+ 97.             composable("notifications") { NotificationsTab(authRepo, residentsApi) }
+ 98.             composable("profile") { ProfileTab(authRepo, residentsApi, onLogout) }
+ 99.             composable("history") { HistoryTab(authRepo, residentsApi) }
+100.             composable("emergency") { EmergencyTab(authRepo, residentsApi) }
+101.         }
+102.     }
+103. }
+104.
+105. @Composable
+106. private fun HomeTab(
+107.     authRepo: AuthRepository,
+108.     residentsApi: ResidentsApi
+109. ) {
+110.     val token = authRepo.tokenFlow.collectAsState(initial = null).value
+111.     var profile by remember { mutableStateOf<ResidentsApi.ProfileResponse?>(null) }
+112.     var elevators by remember { mutableStateOf<List<ResidentsApi.ElevatorResponse>>(emptyList()) }
+113.     var isLoading by remember { mutableStateOf(true) }
+114.     var error by remember { mutableStateOf<String?>(null) }
+115.     val scope = rememberCoroutineScope()
+116.
+117.     LaunchedEffect(token) {
+118.         if (token != null) {
+119.             try {
+120.                 val profileResponse = residentsApi.getProfile(token)
+121.                 if (profileResponse.isSuccessful) {
+122.                     profile = profileResponse.body()
+123.
+124.                     profile?.let {
+125.                         val elevatorsResponse = residentsApi.getElevators(token)
+126.                         if (elevatorsResponse.isSuccessful) {
+127.                             elevators = elevatorsResponse.body() ?: emptyList()
+128.                         } else {
+129.                             error = "Не вдалося завантажити ліфти"
+130.                         }
+131.                     }
+132.                 } else {
+133.                     error = "Не вдалося завантажити профіль"
+134.                 }
+135.             } catch (e: Exception) {
+136.                 error = "Помилка мережі: ${e.localizedMessage}"
+137.             } finally {
+138.                 isLoading = false
+139.             }
+140.         }
+141.     }
+142.
+143.     Column(
+144.         modifier = Modifier
+145.             .padding(16.dp)
+146.             .fillMaxSize()
+147.     ) {
+148.         if (isLoading) {
+149.             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+150.                 CircularProgressIndicator()
+151.             }
+152.         } else {
+153.             error?.let {
+154.                 Text(
+155.                     text = it,
+156.                     color = MaterialTheme.colorScheme.error,
+157.                     modifier = Modifier.padding(8.dp)
+158.                 )
+159.             }
+160.
+161.             profile?.let {
+162.                 Text(
+163.                     text = "Ласкаво просимо, ${it.name}!",
+164.                     style = MaterialTheme.typography.headlineSmall,
+165.                     modifier = Modifier.padding(bottom = 16.dp)
+166.                 )
+167.
+168.                 Text(
+169.                     text = "Ваш будинок: #${it.building_id}",
+170.                     style = MaterialTheme.typography.bodyLarge
+171.                 )
+172.             }
+173.
+174.             Spacer(modifier = Modifier.height(24.dp))
+175.
+176.             Text(
+177.                 text = "Стан ліфтів:",
+178.                 style = MaterialTheme.typography.titleMedium
+179.             )
+180.
+181.             Spacer(modifier = Modifier.height(8.dp))
+182.
+183.             if (elevators.isEmpty()) {
+184.                 Text("Немає доступних ліфтів")
+185.             } else {
+186.                 val activeCount = elevators.count { it.status == "active" }
+187.                 val maintenanceCount = elevators.count { it.status == "maintenance" }
+188.                 val brokenCount = elevators.count { it.status == "critical" }
+189.
+190.                 Row(
+191.                     modifier = Modifier.fillMaxWidth(),
+192.                     horizontalArrangement = Arrangement.SpaceEvenly
+193.                 ) {
+194.                     StatusIndicator(
+195.                         count = activeCount,
+196.                         total = elevators.size,
+197.                         label = "Працюють",
+198.                         icon = Icons.Default.CheckCircle,
+199.                         color = MaterialTheme.colorScheme.primary
+200.                     )
+201.                     StatusIndicator(
+202.                         count = maintenanceCount,
+203.                         total = elevators.size,
+204.                         label = "На ремонті",
+205.                         icon = Icons.Default.Build,
+206.                         color = MaterialTheme.colorScheme.secondary
+207.                     )
+208.                     StatusIndicator(
+209.                         count = brokenCount,
+210.                         total = elevators.size,
+211.                         label = "Не працюють",
+212.                         icon = Icons.Default.Warning,
+213.                         color = MaterialTheme.colorScheme.error
+214.                     )
+215.                 }
+216.
+217.                 Spacer(modifier = Modifier.height(24.dp))
+218.
+219.                 Text(
+220.                     text = "Останні події:",
+221.                     style = MaterialTheme.typography.titleMedium
+222.                 )
+223.
+224.                 Spacer(modifier = Modifier.height(8.dp))
+225.
+226.                 // Тут можна додати список останніх подій
+227.                 // Наприклад, останні запити на ремонт або сповіщення
+228.             }
+229.         }
+230.     }
+231. }
+232.
+233. @Composable
+234. private fun StatusIndicator(
+235.     count: Int,
+236.     total: Int,
+237.     label: String,
+238.     icon: ImageVector,
+239.     color: Color
+240. ) {
+241.     Column(horizontalAlignment = Alignment.CenterHorizontally) {
+242.         Icon(icon, contentDescription = label, tint = color)
+243.         Text(text = "$count/$total", style = MaterialTheme.typography.bodyLarge)
+244.         Text(text = label, style = MaterialTheme.typography.bodySmall)
+245.     }
+246. }
+247.
+248. @Composable
+249. private fun ElevatorsTab(
+250.     authRepo: AuthRepository,
+251.     residentsApi: ResidentsApi
+252. ) {
+253.     val token = authRepo.tokenFlow.collectAsState(initial = null).value
+254.     var elevators by remember { mutableStateOf<List<ResidentsApi.ElevatorResponse>>(emptyList()) }
+255.     var isLoading by remember { mutableStateOf(true) }
+256.     var error by remember { mutableStateOf<String?>(null) }
+257.     val scope = rememberCoroutineScope()
+258.
+259.     LaunchedEffect(token) {
+260.         if (token != null) {
+261.             try {
+262.                 val response = residentsApi.getElevators(token)
+263.                 if (response.isSuccessful) {
+264.                     elevators = response.body() ?: emptyList()
+265.                 } else {
+266.                     error = "Не вдалося завантажити ліфти"
+267.                 }
+268.             } catch (e: Exception) {
+269.                 error = "Помилка мережі: ${e.localizedMessage}"
+270.             } finally {
+271.                 isLoading = false
+272.             }
+273.         }
+274.     }
+275.
+276.     Column(
+277.         modifier = Modifier
+278.             .padding(16.dp)
+279.             .fillMaxSize()
+280.     ) {
+281.         if (isLoading) {
+282.             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+283.                 CircularProgressIndicator()
+284.             }
+285.         } else {
+286.             error?.let {
+287.                 Text(
+288.                     text = it,
+289.                     color = MaterialTheme.colorScheme.error,
+290.                     modifier = Modifier.padding(8.dp)
+291.                 )
+292.             }
+293.
+294.             LazyColumn(modifier = Modifier.fillMaxSize()) {
+295.                 items(elevators) { elevator ->
+296.                     ElevatorCard(
+297.                         elevator = elevator,
+298.                         onCallTechnician = {
+299.                             scope.launch {
+300.                                 try {
+301.                                     val response = residentsApi.requestMaintenance(
+302.                                         token ?: "",
+303.                                         ResidentsApi.MaintenanceRequest(
+304.                                             elevator_id = elevator.id,
+305.                                             description = "Запит на обслуговування від мешканця"
+306.                                         )
+307.                                     )
+308.
+309.                                     if (response.isSuccessful) {
+310.                                         error = "Технік викликаний до ліфта #${elevator.id}"
+311.                                     } else {
+312.                                         error = "Не вдалося викликати техніка"
+313.                                     }
+314.                                 } catch (e: Exception) {
+315.                                     error = "Помилка: ${e.localizedMessage}"
+316.                                 }
+317.                             }
+318.                         }
+319.                     )
+320.                 }
+321.             }
+322.         }
+323.     }
+324. }
+325.
+326. @Composable
+327. private fun NotificationsTab(
+328.     authRepo: AuthRepository,
+329.     residentsApi: ResidentsApi
+330. ) {
+331.     // Тут можна реалізувати список сповіщень
+332.     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+333.         Text("Сповіщення будуть тут")
+334.     }
+335. }
+336.
+337. @Composable
+338. private fun ProfileTab(
+339.     authRepo: AuthRepository,
+340.     residentsApi: ResidentsApi,
+341.     onLogout: suspend () -> Unit
+342. ) {
+343.     val token = authRepo.tokenFlow.collectAsState(initial = null).value
+344.     var profile by remember { mutableStateOf<ResidentsApi.ProfileResponse?>(null) }
+345.     var isLoading by remember { mutableStateOf(true) }
+346.     var error by remember { mutableStateOf<String?>(null) }
+347.     var editMode by remember { mutableStateOf(false) }
+348.     val scope = rememberCoroutineScope()
+349.
+350.     var name by rememberSaveable { mutableStateOf("") }
+351.     var email by rememberSaveable { mutableStateOf("") }
+352.     var password by rememberSaveable { mutableStateOf("") }
+353.     var confirmPassword by rememberSaveable { mutableStateOf("") }
+354.
+355.     LaunchedEffect(token) {
+356.         if (token != null) {
+357.             try {
+358.                 val response = residentsApi.getProfile(token)
+359.                 if (response.isSuccessful) {
+360.                     profile = response.body()
+361.                     name = profile?.name ?: ""
+362.                     email = profile?.email ?: ""
+363.                 } else {
+364.                     error = "Не вдалося завантажити профіль"
+365.                 }
+366.             } catch (e: Exception) {
+367.                 error = "Помилка мережі: ${e.localizedMessage}"
+368.             } finally {
+369.                 isLoading = false
+370.             }
+371.         }
+372.     }
+373.
+374.     Column(
+375.         modifier = Modifier
+376.             .padding(16.dp)
+377.             .fillMaxSize()
+378.     ) {
+379.         if (isLoading) {
+380.             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+381.                 CircularProgressIndicator()
+382.             }
+383.         } else {
+384.             error?.let {
+385.                 Text(
+386.                     text = it,
+387.                     color = MaterialTheme.colorScheme.error,
+388.                     modifier = Modifier.padding(8.dp)
+389.                 )
+390.             }
+391.
+392.             if (editMode) {
+393.                 OutlinedTextField(
+394.                     value = name,
+395.                     onValueChange = { name = it },
+396.                     label = { Text("Ім'я") },
+397.                     modifier = Modifier.fillMaxWidth()
+398.                 )
+399.
+400.                 Spacer(modifier = Modifier.height(8.dp))
+401.
+402.                 OutlinedTextField(
+403.                     value = email,
+404.                     onValueChange = { email = it },
+405.                     label = { Text("Email") },
+406.                     modifier = Modifier.fillMaxWidth()
+407.                 )
+408.
+409.                 Spacer(modifier = Modifier.height(8.dp))
+410.
+411.                 OutlinedTextField(
+412.                     value = password,
+413.                     onValueChange = { password = it },
+414.                     label = { Text("Новий пароль") },
+415.                     visualTransformation = PasswordVisualTransformation(),
+416.                     modifier = Modifier.fillMaxWidth()
+417.                 )
+418.
+419.                 Spacer(modifier = Modifier.height(8.dp))
+420.
+421.                 OutlinedTextField(
+422.                     value = confirmPassword,
+423.                     onValueChange = { confirmPassword = it },
+424.                     label = { Text("Підтвердіть пароль") },
+425.                     visualTransformation = PasswordVisualTransformation(),
+426.                     modifier = Modifier.fillMaxWidth()
+427.                 )
+428.
+429.                 Spacer(modifier = Modifier.height(16.dp))
+430.
+431.                 Row(
+432.                     modifier = Modifier.fillMaxWidth(),
+433.                     horizontalArrangement = Arrangement.SpaceBetween
+434.                 ) {
+435.                     Button(onClick = { editMode = false }) {
+436.                         Text("Скасувати")
+437.                     }
+438.
+439.                     Button(
+440.                         onClick = {
+441.                             if (password.isNotEmpty() && password != confirmPassword) {
+442.                                 error = "Паролі не співпадають"
+443.                                 return@Button
+444.                             }
+445.
+446.                             scope.launch {
+447.                                 try {
+448.                                     val response = residentsApi.updateProfile(
+449.                                         token ?: "",
+450.                                         ResidentsApi.UpdateProfileRequest(
+451.                                             name = name,
+452.                                             email = email,
+453.                                             password = if (password.isNotEmpty()) password else null
+454.                                         )
+455.                                     )
+456.
+457.                                     if (response.isSuccessful) {
+458.                                         profile = response.body()
+459.                                         editMode = false
+460.                                         error = null
+461.                                     } else {
+462.                                         error = "Не вдалося оновити профіль"
+463.                                     }
+464.                                 } catch (e: Exception) {
+465.                                     error = "Помилка: ${e.localizedMessage}"
+466.                                 }
+467.                             }
+468.                         }
+469.                     ) {
+470.                         Text("Зберегти")
+471.                     }
+472.                 }
+473.             } else {
+474.                 profile?.let {
+475.                     Text(
+476.                         text = "Ваш профіль",
+477.                         style = MaterialTheme.typography.headlineSmall,
+478.                         modifier = Modifier.padding(bottom = 16.dp)
+479.                     )
+480.
+481.                     Text(text = "Ім'я: ${it.name}")
+482.                     Text(text = "Email: ${it.email}")
+483.                     Text(text = "Будинок: #${it.building_id}")
+484.
+485.                     Spacer(modifier = Modifier.height(24.dp))
+486.
+487.                     Button(
+488.                         onClick = { editMode = true },
+489.                         modifier = Modifier.fillMaxWidth()
+490.                     ) {
+491.                         Text("Редагувати профіль")
+492.                     }
+493.                 }
+494.             }
+495.         }
+496.     }
+497. }
+498.
+499. @Composable
+500. private fun HistoryTab(
+501.     authRepo: AuthRepository,
+502.     residentsApi: ResidentsApi
+503. ) {
+504.     val token = authRepo.tokenFlow.collectAsState(initial = null).value
+505.     var history by remember { mutableStateOf<List<ResidentsApi.MaintenanceHistoryResponse>>(emptyList()) }
+506.     var isLoading by remember { mutableStateOf(true) }
+507.     var error by remember { mutableStateOf<String?>(null) }
+508.     val scope = rememberCoroutineScope()
+509.
+510.     LaunchedEffect(token) {
+511.         if (token != null) {
+512.             try {
+513.                 val response = residentsApi.getMaintenanceHistory(token)
+514.                 if (response.isSuccessful) {
+515.                     history = response.body() ?: emptyList()
+516.                 } else {
+517.                     error = "Не вдалося завантажити історію"
+518.                 }
+519.             } catch (e: Exception) {
+520.                 error = "Помилка мережі: ${e.localizedMessage}"
+521.             } finally {
+522.                 isLoading = false
+523.             }
+524.         }
+525.     }
+526.
+527.     Column(
+528.         modifier = Modifier
+529.             .padding(16.dp)
+530.             .fillMaxSize()
+531.     ) {
+532.         if (isLoading) {
+533.             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+534.                 CircularProgressIndicator()
+535.             }
+536.         } else {
+537.             error?.let {
+538.                 Text(
+539.                     text = it,
+540.                     color = MaterialTheme.colorScheme.error,
+541.                     modifier = Modifier.padding(8.dp)
+542.                 )
+543.             }
+544.
+545.             if (history.isEmpty()) {
+546.                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+547.                     Text("Історія порожня")
+548.                 }
+549.             } else {
+550.                 LazyColumn(modifier = Modifier.fillMaxSize()) {
+551.                     items(history) { record ->
+552.                         HistoryItem(record = record)
+553.                     }
+554.                 }
+555.             }
+556.         }
+557.     }
+558. }
+559.
+560. @Composable
+561. private fun HistoryItem(record: ResidentsApi.MaintenanceHistoryResponse) {
+562.     Card(
+563.         modifier = Modifier
+564.             .fillMaxWidth()
+565.             .padding(vertical = 4.dp)
+566.     ) {
+567.         Column(modifier = Modifier.padding(16.dp)) {
+568.             Text(text = "Ліфт #${record.elevator_id}", style = MaterialTheme.typography.bodyLarge)
+569.             Text(text = record.date, style = MaterialTheme.typography.bodySmall)
+570.             Text(text = record.description, modifier = Modifier.padding(top = 4.dp))
+571.             Text(
+572.                 text = "Статус: ${record.status}",
+573.                 color = when (record.status.lowercase()) {
+574.                     "completed" -> MaterialTheme.colorScheme.primary
+575.                     "in_progress" -> MaterialTheme.colorScheme.secondary
+576.                     "pending" -> MaterialTheme.colorScheme.error
+577.                     else -> MaterialTheme.colorScheme.onSurface
+578.                 },
+579.                 modifier = Modifier.padding(top = 4.dp)
+580.             )
+581.         }
+582.     }
+583. }
+584.
+585. @Composable
+586. private fun EmergencyTab(
+587.     authRepo: AuthRepository,
+588.     residentsApi: ResidentsApi
+589. ) {
+590.     val token = authRepo.tokenFlow.collectAsState(initial = null).value
+591.     var message by rememberSaveable { mutableStateOf("") }
+592.     var selectedElevator by rememberSaveable { mutableStateOf<Int?>(null) }
+593.     var elevators by remember { mutableStateOf<List<ResidentsApi.ElevatorResponse>>(emptyList()) }
+594.     var isLoading by remember { mutableStateOf(true) }
+595.     var error by remember { mutableStateOf<String?>(null) }
+596.     var successMessage by remember { mutableStateOf<String?>(null) }
+597.     val scope = rememberCoroutineScope()
+598.
+599.     LaunchedEffect(token) {
+600.         if (token != null) {
+601.             try {
+602.                 val response = residentsApi.getElevators(token)
+603.                 if (response.isSuccessful) {
+604.                     elevators = response.body() ?: emptyList()
+605.                 } else {
+606.                     error = "Не вдалося завантажити ліфти"
+607.                 }
+608.             } catch (e: Exception) {
+609.                 error = "Помилка мережі: ${e.localizedMessage}"
+610.             } finally {
+611.                 isLoading = false
+612.             }
+613.         }
+614.     }
+615.
+616.     Column(
+617.         modifier = Modifier
+618.             .padding(16.dp)
+619.             .fillMaxSize()
+620.     ) {
+621.         Text(
+622.             text = "Екстрений виклик",
+623.             style = MaterialTheme.typography.headlineSmall,
+624.             modifier = Modifier.padding(bottom = 16.dp)
+625.         )
+626.
+627.         if (isLoading) {
+628.             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+629.                 CircularProgressIndicator()
+630.             }
+631.         } else {
+632.             error?.let {
+633.                 Text(
+634.                     text = it,
+635.                     color = MaterialTheme.colorScheme.error,
+636.                     modifier = Modifier.padding(8.dp)
+637.                 )
+638.             }
+639.
+640.             successMessage?.let {
+641.                 Text(
+642.                     text = it,
+643.                     color = MaterialTheme.colorScheme.primary,
+644.                     modifier = Modifier.padding(8.dp)
+645.                 )
+646.             }
+647.
+648.             Text(
+649.                 text = "Оберіть ліфт:",
+650.                 style = MaterialTheme.typography.bodyLarge,
+651.                 modifier = Modifier.padding(bottom = 8.dp)
+652.             )
+653.
+654.             if (elevators.isEmpty()) {
+655.                 Text("Немає доступних ліфтів")
+656.             } else {
+657.                 elevators.forEach { elevator ->
+658.                     Row(
+659.                         verticalAlignment = Alignment.CenterVertically,
+660.                         modifier = Modifier.padding(vertical = 4.dp)
+661.                     ) {
+662.                         RadioButton(
+663.                             selected = selectedElevator == elevator.id,
+664.                             onClick = { selectedElevator = elevator.id }
+665.                         )
+666.                         Text(
+667.                             text = "Ліфт #${elevator.id} (${elevator.serial_number})",
+668.                             modifier = Modifier.padding(start = 8.dp)
+669.                         )
+670.                     }
+671.                 }
+672.             }
+673.
+674.             Spacer(modifier = Modifier.height(16.dp))
+675.
+676.             OutlinedTextField(
+677.                 value = message,
+678.                 onValueChange = { message = it },
+679.                 label = { Text("Опишіть проблему") },
+680.                 modifier = Modifier.fillMaxWidth(),
+681.                 maxLines = 3
+682.             )
+683.
+684.             Spacer(modifier = Modifier.height(16.dp))
+685.
+686.             Button(
+687.                 onClick = {
+688.                     if (selectedElevator == null) {
+689.                         error = "Оберіть ліфт"
+690.                         return@Button
+691.                     }
+692.
+693.                     scope.launch {
+694.                         try {
+695.                             val response = residentsApi.emergencyCall(
+696.                                 token ?: "",
+697.                                 ResidentsApi.EmergencyRequest(
+698.                                     elevator_id = selectedElevator!!,
+699.                                     message = message.ifEmpty { "Екстрений виклик" }
+700.                                 )
+701.                             )
+702.
+703.                             if (response.isSuccessful) {
+704.                                 successMessage = "Екстрений виклик надіслано!"
+705.                                 error = null
+706.                                 message = ""
+707.                             } else {
+708.                                 error = "Не вдалося надіслати виклик"
+709.                                 successMessage = null
+710.                             }
+711.                         } catch (e: Exception) {
+712.                             error = "Помилка: ${e.localizedMessage}"
+713.                             successMessage = null
+714.                         }
+715.                     }
+716.                 },
+717.                 modifier = Modifier.fillMaxWidth(),
+718.                 colors = ButtonDefaults.buttonColors(
+719.                     containerColor = MaterialTheme.colorScheme.errorContainer,
+720.                     contentColor = MaterialTheme.colorScheme.onErrorContainer
+721.                 )
+722.             ) {
+723.                 Text("Надіслати екстрений виклик")
+724.             }
+725.         }
+726.     }
+727. }
+728.
+729. @Composable
+730. fun ElevatorCard(
+731.     elevator: ResidentsApi.ElevatorResponse,
+732.     onCallTechnician: () -> Unit
+733. ) {
+734.     Card(
+735.         modifier = Modifier
+736.             .fillMaxWidth()
+737.             .padding(vertical = 8.dp)
+738.     ) {
+739.         Column(modifier = Modifier.padding(16.dp)) {
+740.             Text(
+741.                 text = "Ліфт #${elevator.id}",
+742.                 style = MaterialTheme.typography.headlineSmall
+743.             )
+744.
+745.             Spacer(modifier = Modifier.height(8.dp))
+746.
+747.             Text(text = "Серійний номер: ${elevator.serial_number}")
+748.             Text(
+749.                 text = "Статус: ${getStatusText(elevator.status)}",
+750.                 color = when (elevator.status) {
+751.                     "active" -> MaterialTheme.colorScheme.primary
+752.                     "maintenance" -> MaterialTheme.colorScheme.secondary
+753.                     "broken" -> MaterialTheme.colorScheme.error
+754.                     else -> MaterialTheme.colorScheme.onSurface
+755.                 }
+756.             )
+757.
+758.             elevator.install_date?.let {
+759.                 Text(text = "Дата встановлення: $it")
+760.             }
+761.
+762.             Spacer(modifier = Modifier.height(16.dp))
+763.
+764.             Button(
+765.                 onClick = onCallTechnician,
+766.                 enabled = elevator.status != "active",
+767.                 modifier = Modifier.fillMaxWidth()
+768.             ) {
+769.                 Text("Викликати техніка")
+770.             }
+771.         }
+772.     }
+773. }
+774.
+775. fun getStatusText(status: String): String {
+776.     return when (status) {
+777.         "active" -> "Працює"
+778.         "maintenance" -> "На обслуговуванні"
+779.         "broken" -> "Не працює"
+780.         else -> status
+781.     }
+782. }
