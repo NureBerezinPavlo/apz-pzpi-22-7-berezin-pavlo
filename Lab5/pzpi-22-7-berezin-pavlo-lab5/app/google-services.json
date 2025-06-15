@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "231794454759",
+    "project_id": "elevator-monitoring-apz",
+    "storage_bucket": "elevator-monitoring-apz.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231794454759:android:52787faad00ada44c2b242",
+        "android_client_info": {
+          "package_name": "com.example.elevator_monitoring"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCFtIRMp44UVIdcCq72QO4v7qcE9vw4SY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">elevator-monitoring</string>
+    <string name="problem_elevators">Проблемні ліфти</string>
+    <string name="failed_load_elevators">Не вдалося завантажити ліфти</string>
+    <string name="network_error">Помилка мережі</string>
+    <string name="no_problem_elevators">Немає проблемних ліфтів</string>
+    <string name="priority">Пріоритет</string>
+    <string name="elevator">Ліфт</string>
+    <string name="building">Будинок</string>
+    <string name="address">Адреса</string>
+    <string name="status">Статус</string>
+    <string name="last_update">Останнє оновлення</string>
+    <string name="assigned_tech">Призначений технік</string>
+    <string name="technician_panel">Панель техніка</string>
+    <string name="tasks">Завдання</string>
+    <string name="elevators">Ліфти</string>
+    <string name="profile">Профіль</string>
+    <string name="logout">Вийти</string>
+    <string name="history">Історія</string>
+    <string name="map">Мапа</string>
+    <string name="elevator_details">Деталі ліфта</string>
+    <string name="status_active">Працює</string>
+    <string name="status_maintenance">На ремонті</string>
+    <string name="status_broken">Зламаний</string>
+</resources>

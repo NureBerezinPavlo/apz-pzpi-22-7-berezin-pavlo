@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">elevator-monitoring</string>
+    <string name="problem_elevators">Problem Elevators</string>
+    <string name="failed_load_elevators">Failed to load elevators</string>
+    <string name="network_error">Network error</string>
+    <string name="no_problem_elevators">No problem elevators</string>
+    <string name="priority">Priority</string>
+    <string name="elevator">Elevator</string>
+    <string name="building">Building</string>
+    <string name="address">Address</string>
+    <string name="status">Status</string>
+    <string name="last_update">Last update</string>
+    <string name="assigned_tech">Assigned technician</string>
+    <string name="technician_panel">Technician Panel</string>
+    <string name="tasks">Tasks</string>
+    <string name="elevators">Elevators</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="history">History</string>
+    <string name="map">Map</string>
+    <string name="elevator_details">Elevator Details</string>
+    <string name="status_active">Active</string>
+    <string name="status_maintenance">Maintenance</string>
+    <string name="status_broken">Broken</string>
+</resources>
