@@ -124,7 +124,7 @@
 4.5 Висновки
         
 Розроблений фронтенд забезпечує зручний та функціональний інтерфейс для моніторингу та керування ліфтами. Використання сучасних технологій та бібліотек дозволило створити продуктивний і масштабований додаток з можливістю подальшого вдосконалення.
-URL на код на GitHub: https://github.com/NureBerezinPavlo/apz-pzpi-22-7-berezin-pavlo/tree/main/Lab5/pzpi-22-7-berezin-pavlo-lab5 
+URL на код на GitHub: https://github.com/NureBerezinPavlo/apz-pzpi-22-7-berezin-pavlo/tree/main/Lab4/pzpi-22-7-berezin-pavlo-lab4 
 
 
 
